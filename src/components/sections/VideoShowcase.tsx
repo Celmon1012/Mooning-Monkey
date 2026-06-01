@@ -1,0 +1,98 @@
+import { motion } from 'framer-motion';
+import { Play } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { assets, links } from '../../data/assets';
+import { AnimatedSection } from '../ui/AnimatedSection';
+import { SectionHeading } from '../ui/SectionHeading';
+
+export function VideoShowcase() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      if (playing) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setPlaying(!playing);
+    }
+  };
+
+  return (
+    <AnimatedSection id="video" className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 bg-hero-glow" />
+
+      <div className="relative mx-auto max-w-5xl">
+        <SectionHeading
+          label="Experience"
+          title="Witness The Space Odyssey"
+          subtitle="Watch the Mooning Monkeys embark on their epic journey through the cosmos."
+        />
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative"
+        >
+          {/* Glow frame */}
+          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-cyan-glow/40 via-purple-glow/40 to-magenta-glow/40 blur-sm" />
+
+          <div className="relative overflow-hidden rounded-3xl glass-strong glow-border">
+            <div className="relative aspect-video bg-void">
+              <video
+                ref={videoRef}
+                src={assets.video}
+                className="h-full w-full object-cover"
+                loop
+                playsInline
+                poster={assets.heroBg}
+                onPlay={() => setPlaying(true)}
+                onPause={() => setPlaying(false)}
+              />
+
+              {/* Play overlay */}
+              {!playing && (
+                <motion.button
+                  type="button"
+                  onClick={handlePlay}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="absolute inset-0 flex items-center justify-center bg-void/40 backdrop-blur-sm transition-colors hover:bg-void/30"
+                  aria-label="Play video"
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-cyan-glow to-purple-glow shadow-glow-lg"
+                  >
+                    <Play size={32} className="ml-1 text-void" fill="currentColor" />
+                  </motion.div>
+                </motion.button>
+              )}
+            </div>
+
+            {/* Video info bar */}
+            <div className="flex items-center justify-between border-t border-white/10 px-6 py-4">
+              <div>
+                <h4 className="font-display font-semibold">Mooning Monkey Official Trailer</h4>
+                <p className="text-sm text-white/50">The greatest space mission of all time</p>
+              </div>
+              <a
+                href={links.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-cyan-glow transition-colors hover:text-white"
+              >
+                Watch on YouTube →
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </AnimatedSection>
+  );
+}
