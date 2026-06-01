@@ -1,9 +1,16 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, MessageCircle, Play, Send } from 'lucide-react';
 import { assets, links } from '../../data/assets';
 import { Button } from '../ui/Button';
 import { GalaxyBackground } from '../ui/GalaxyBackground';
+import { GlassCard } from '../ui/GlassCard';
 import { Particles } from '../ui/Particles';
+
+const utilityHighlights = [
+  'Co-own the Mooning Monkey Crash Game & share profits',
+  'Epic sci-fi comic book in limited NFT edition',
+  'Daily $TAK token rewards for all evolution holders',
+];
 
 export function Hero() {
   return (
@@ -11,15 +18,14 @@ export function Hero() {
       <GalaxyBackground />
       <Particles count={50} />
 
-      {/* Hero background image overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-lighten"
+        className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-lighten"
         style={{ backgroundImage: `url(${assets.heroBg})` }}
       />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-28 pb-16 sm:px-6 lg:px-8 lg:pt-32">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Content */}
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-16">
+          {/* Left — headline & primary CTAs */}
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -42,12 +48,10 @@ export function Hero() {
               <span className="mb-5 block font-mono text-[11px] font-medium uppercase tracking-[0.35em] text-white/40 sm:text-xs">
                 Onboard the
               </span>
-
               <span className="block font-display text-[2.5rem] font-bold leading-[1.12] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.5rem] lg:leading-[1.1] xl:text-6xl">
                 Greatest{' '}
                 <span className="hero-headline-accent">Space Mission</span>
               </span>
-
               <span className="mt-3 block font-display text-[2.5rem] font-bold leading-[1.12] tracking-[-0.02em] text-white/80 sm:text-5xl lg:text-[3.5rem] lg:leading-[1.1] xl:text-6xl">
                 of All Time
               </span>
@@ -59,9 +63,9 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg"
             >
-              Save the Mooning Monkeys from imminent extinction. Earn astronomical rewards,
-              exclusive membership privileges, and a lifetime source of passive income through
-              the most utility-packed NFT ecosystem in Web3.
+              Join the Mooning Monkeys on their epic space journey — exclusive NFT art from
+              another world and unrivalled utility from galaxies far beyond. Co-own the famous
+              Crash Game, collect the sci-fi comic, and earn passive rewards.
             </motion.p>
 
             <motion.div
@@ -103,42 +107,93 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Hero Artwork */}
+          {/* Right — ecosystem panel (replaces monkey icon) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex justify-center lg:justify-end"
+            className="space-y-4"
           >
-            <div className="relative">
-              {/* Glow ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-glow/30 to-purple-glow/30 blur-3xl" />
+            {/* Crash game feature */}
+            <a href="#about" className="group block">
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 glass glow-border">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={assets.sec4Front}
+                    alt="Mooning Monkey Crash Game"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-cyan-glow">
+                      Co-own & profit
+                    </span>
+                    <h3 className="mt-1 font-display text-lg font-bold text-white sm:text-xl">
+                      Mooning Monkey Crash Game
+                    </h3>
+                    <p className="mt-1 text-sm text-white/60">
+                      Multiplayer crash gameplay — cash out before the curve crashes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
 
-              <motion.img
-                src={assets.heroMonkey}
-                alt="Mooning Monkey Astronaut"
-                className="relative z-10 w-full max-w-md object-contain drop-shadow-2xl lg:max-w-lg xl:max-w-xl"
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              />
-
-              {/* Orbiting elements */}
-              <motion.div
-                className="absolute -right-4 top-1/4 h-16 w-16 rounded-full border border-cyan-glow/30 bg-cyan-glow/10 backdrop-blur-sm"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              />
-              <motion.div
-                className="absolute -left-8 bottom-1/4 h-12 w-12 rounded-full border border-purple-glow/30 bg-purple-glow/10 backdrop-blur-sm"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-              />
+            {/* NFT preview strip */}
+            <div className="grid grid-cols-4 gap-2">
+              {assets.nfts.slice(0, 4).map((img, i) => (
+                <motion.a
+                  key={img}
+                  href="#collection"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 + i * 0.05 }}
+                  className="group aspect-square overflow-hidden rounded-xl border border-white/10 glass"
+                >
+                  <img
+                    src={img}
+                    alt={`Collection preview ${i + 1}`}
+                    className="h-full w-full object-cover transition-transform group-hover:scale-110"
+                  />
+                </motion.a>
+              ))}
             </div>
+
+            {/* Utility bullets + community */}
+            <GlassCard hover={false} className="!p-4">
+              <ul className="space-y-2.5">
+                {utilityHighlights.map((text) => (
+                  <li key={text} className="flex items-start gap-2 text-sm text-white/55">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-purple-glow" />
+                    {text}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 flex flex-wrap gap-2 border-t border-white/10 pt-4">
+                <a
+                  href={links.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-cyan-glow/10 px-4 py-2.5 text-sm font-medium text-cyan-glow transition-colors hover:bg-cyan-glow/20"
+                >
+                  <Send size={16} />
+                  Join Telegram
+                </a>
+                <a
+                  href={links.discord}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-purple-glow/10 px-4 py-2.5 text-sm font-medium text-purple-glow transition-colors hover:bg-purple-glow/20"
+                >
+                  <MessageCircle size={16} />
+                  Join Discord
+                </a>
+              </div>
+            </GlassCard>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
