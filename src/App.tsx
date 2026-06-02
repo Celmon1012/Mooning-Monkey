@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="relative min-h-screen bg-void">
       <Navbar />
-      <main className="pt-14">
+      <main className="pt-16 sm:pt-[4.5rem]">
         <Hero />
         <div className="section-divider" aria-hidden />
         <About />
