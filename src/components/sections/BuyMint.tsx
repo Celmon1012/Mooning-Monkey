@@ -3,6 +3,7 @@ import { ArrowRight, ExternalLink, Minus, PlayCircle, Plus, Wallet } from 'lucid
 import { useEffect, useState } from 'react';
 import { assets, links } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
+import { VideoBackground } from '../ui/VideoBackground';
 
 type MintTab = 'buy' | 'phantom';
 
@@ -132,15 +133,22 @@ export function BuyMint() {
   return (
     <AnimatedSection
       id="buy"
-      className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+      className="relative overflow-hidden px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16"
     >
+      <VideoBackground
+        src={assets.video}
+        poster={assets.sec3Bg}
+        opacity={0.15}
+        parallax
+        overlayClassName="bg-gradient-to-t from-void via-void/90 to-void"
+      />
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-[0.1]"
+        className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
         style={{ backgroundImage: `url(${assets.sec3Bg})` }}
       />
       <div className="hero-vignette absolute inset-0" />
 
-      <div className="relative mx-auto max-w-4xl">
+      <div className="relative z-10 mx-auto max-w-4xl">
         <div className="mb-6 text-center sm:mb-8">
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/35">
             Mint access

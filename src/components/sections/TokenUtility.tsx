@@ -4,16 +4,24 @@ import { tokenFeatures } from '../../data/content';
 import { AnimatedSection } from '../ui/AnimatedSection';
 import { Button } from '../ui/Button';
 import { GlassCard } from '../ui/GlassCard';
+import { Reveal3D } from '../ui/Reveal3D';
 import { SectionHeading } from '../ui/SectionHeading';
+import { VideoBackground } from '../ui/VideoBackground';
 
 export function TokenUtility() {
   return (
-    <AnimatedSection id="token" className="section-padding relative overflow-hidden">
+    <AnimatedSection id="token" mesh="cyan" className="section-padding overflow-hidden">
+      <VideoBackground
+        src={assets.video}
+        poster={assets.tokenBack}
+        opacity={0.1}
+        parallax
+        overlayClassName="bg-gradient-to-r from-void/95 via-void/88 to-void/95"
+      />
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-15"
+        className="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay"
         style={{ backgroundImage: `url(${assets.tokenBack})` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-void via-void/90 to-void" />
 
       <div className="relative mx-auto max-w-7xl">
         <SectionHeading
@@ -22,17 +30,13 @@ export function TokenUtility() {
           subtitle="The Mooning Monkey Mission goes far beyond the simple NFT collectible sphere. We are building a galactical ecosystem that will handsomely reward ALL participants."
         />
 
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
           {/* Left - Token info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
+          <Reveal3D direction="left">
             <GlassCard glow className="relative overflow-hidden">
               <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-purple-glow/20 blur-3xl" />
               <div className="relative">
-                <span className="font-mono text-xs uppercase tracking-widest text-cyan-glow">
+                <span className="font-sansation text-xs uppercase tracking-widest text-cyan-glow">
                   Takion Token
                 </span>
                 <h3 className="mt-2 font-display text-4xl font-bold">
@@ -89,18 +93,12 @@ export function TokenUtility() {
                 </p>
               </div>
             </motion.div>
-          </motion.div>
+          </Reveal3D>
 
           {/* Right - Feature grid */}
           <div className="grid gap-4 sm:grid-cols-2">
             {tokenFeatures.map((feature, i) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-              >
+              <Reveal3D key={feature.title} delay={i * 0.08}>
                 <GlassCard className="h-full">
                   <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow/20 to-purple-glow/20">
                     <feature.icon className="h-5 w-5 text-cyan-glow" />
@@ -110,18 +108,13 @@ export function TokenUtility() {
                     {feature.description}
                   </p>
                 </GlassCard>
-              </motion.div>
+              </Reveal3D>
             ))}
           </div>
         </div>
 
         {/* Mystery box */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 flex flex-col items-center gap-8 rounded-3xl glass-strong p-8 sm:flex-row sm:p-12"
-        >
+        <Reveal3D className="mt-10 flex flex-col items-center gap-8 rounded-3xl glass-strong p-8 sm:flex-row sm:p-12">
           <motion.img
             src={assets.questionBox}
             alt="Lucky Mystery Box"
@@ -139,7 +132,7 @@ export function TokenUtility() {
               own a Mooning Monkey.
             </p>
           </div>
-        </motion.div>
+        </Reveal3D>
       </div>
     </AnimatedSection>
   );

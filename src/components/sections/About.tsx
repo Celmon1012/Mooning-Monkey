@@ -7,9 +7,7 @@ import { SectionHeading } from '../ui/SectionHeading';
 
 export function About() {
   return (
-    <AnimatedSection id="about" className="section-padding relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-void via-cosmic/50 to-void" />
-
+    <AnimatedSection id="about" mesh="mixed" className="section-padding">
       <div className="relative mx-auto max-w-7xl">
         <SectionHeading
           label="The Universe"
@@ -18,7 +16,7 @@ export function About() {
         />
 
         {/* Block 1 - Story */}
-        <div className="mb-20 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="mb-16 grid items-center gap-8 lg:mb-20 lg:grid-cols-2 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -40,7 +38,7 @@ export function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <span className="font-mono text-xs uppercase tracking-widest text-purple-glow">
+            <span className="font-sansation text-xs uppercase tracking-widest text-purple-glow">
               Co-Own The Game
             </span>
             <h3 className="mt-3 font-display text-2xl font-bold sm:text-3xl lg:text-4xl">
@@ -81,14 +79,14 @@ export function About() {
         </div>
 
         {/* Block 2 - Rarity */}
-        <div className="mb-20 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="mb-16 grid items-center gap-8 lg:mb-20 lg:grid-cols-2 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="order-2 lg:order-1"
           >
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-glow">
+            <span className="font-sansation text-xs uppercase tracking-widest text-cyan-glow">
               Rarity & Spec
             </span>
             <h3 className="mt-3 font-display text-2xl font-bold sm:text-3xl lg:text-4xl">

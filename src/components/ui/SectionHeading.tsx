@@ -20,33 +20,33 @@ export function SectionHeading({
   const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left';
 
   return (
-    <div className={`mb-12 max-w-3xl lg:mb-16 ${alignClass} ${className}`}>
+    <div className={`mb-8 max-w-2xl lg:mb-10 ${alignClass} ${className}`}>
       {label && (
         <motion.span
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-4 inline-block font-mono text-xs uppercase tracking-[0.3em] text-cyan-glow/80"
+          className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-glow/90"
         >
           {label}
         </motion.span>
       )}
       <motion.h2
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.1 }}
-        className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl"
+        transition={{ delay: 0.05 }}
+        className="font-display text-2xl font-medium leading-tight text-white sm:text-3xl lg:text-4xl"
       >
-        <span className="gradient-text text-balance">{title}</span>
+        <span className="text-balance">{title}</span>
       </motion.h2>
       {subtitle && (
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-4 text-base leading-relaxed text-white/60 sm:text-lg lg:mt-6"
+          transition={{ delay: 0.1 }}
+          className="mt-3 text-sm leading-relaxed text-white/55 sm:text-base"
         >
           {subtitle}
         </motion.p>

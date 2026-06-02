@@ -40,7 +40,7 @@ const socialLinks = [
 
 export function Community() {
   return (
-    <AnimatedSection id="community" className="section-padding relative">
+    <AnimatedSection id="community" mesh="mixed" className="section-padding">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-5"
         style={{ backgroundImage: `url(${assets.sec2Bg})` }}
@@ -54,7 +54,7 @@ export function Community() {
         />
 
         {/* Social cards */}
-        <div className="mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {socialLinks.map((social, i) => (
             <motion.a
               key={social.name}

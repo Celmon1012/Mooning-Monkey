@@ -20,9 +20,10 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Syne', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        display: ['Nurom', 'sans-serif'],
+        body: ['Sansation', 'sans-serif'],
+        sansation: ['Sansation', 'sans-serif'],
+        nurom: ['Nurom', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -35,6 +36,8 @@ export default {
         'float-delayed': 'float 6s ease-in-out 2s infinite',
         'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
         shimmer: 'shimmer 2.5s linear infinite',
+        'float-3d': 'float-3d 6s ease-in-out infinite',
+        'glow-pulse': 'glow-pulse 4s ease-in-out infinite',
       },
       keyframes: {
         float: {

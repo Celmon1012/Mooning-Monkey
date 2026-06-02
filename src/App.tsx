@@ -16,18 +16,29 @@ function App() {
   return (
     <div className="relative min-h-screen bg-void">
       <Navbar />
-      <main className="pt-[7.25rem] sm:pt-[7.75rem]">
+      <main className="pt-14">
         <Hero />
+        <div className="section-divider" aria-hidden />
         <About />
+        <div className="section-divider" aria-hidden />
         <Evolution />
+        <div className="section-divider" aria-hidden />
         <NFTCollection />
+        <div className="section-divider" aria-hidden />
         <ComicSection />
+        <div className="section-divider" aria-hidden />
         <TokenUtility />
+        <div className="section-divider" aria-hidden />
         <ProfitCalculator />
+        <div className="section-divider" aria-hidden />
         <Roadmap />
+        <div className="section-divider" aria-hidden />
         <VideoShowcase />
+        <div className="section-divider" aria-hidden />
         <Team />
+        <div className="section-divider" aria-hidden />
         <Community />
+        <div className="section-divider" aria-hidden />
         <BuyMint />
       </main>
       <Footer />

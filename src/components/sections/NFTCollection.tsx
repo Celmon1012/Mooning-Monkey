@@ -1,13 +1,17 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { assets } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
 import { SectionHeading } from '../ui/SectionHeading';
+import { TiltCard } from '../ui/TiltCard';
+import { useParallax } from '../ui/useParallax';
 
 const allNfts = [...assets.nfts, ...assets.monkeys];
 
 export function NFTCollection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const bgY = useParallax(sectionRef, ['-8%', '8%']);
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
   const visibleCount = 4;
@@ -37,8 +41,21 @@ export function NFTCollection() {
       : visible;
 
   return (
-    <AnimatedSection id="collection" className="section-padding relative">
-      <div className="absolute inset-0 bg-hero-glow" />
+    <AnimatedSection
+      ref={sectionRef}
+      id="collection"
+      mesh="purple"
+      className="section-padding overflow-hidden"
+    >
+      <motion.div
+        className="absolute inset-0 scale-105 opacity-30"
+        style={{
+          y: bgY,
+          background:
+            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,240,255,0.12), transparent), radial-gradient(ellipse 50% 40% at 80% 80%, rgba(168,85,247,0.1), transparent)',
+        }}
+        aria-hidden
+      />
 
       <div className="relative mx-auto max-w-7xl">
         <SectionHeading
@@ -65,22 +82,25 @@ export function NFTCollection() {
                   <motion.div
                     key={`${current}-${img}`}
                     custom={direction}
-                    initial={{ opacity: 0, x: direction > 0 ? 60 : -60 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: direction > 0 ? -60 : 60 }}
-                    transition={{ duration: 0.4 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="group relative aspect-square overflow-hidden rounded-2xl glass glow-border"
+                    initial={{ opacity: 0, x: direction > 0 ? 60 : -60, rotateY: direction > 0 ? 12 : -12 }}
+                    animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                    exit={{ opacity: 0, x: direction > 0 ? -60 : 60, rotateY: direction > 0 ? -12 : 12 }}
+                    transition={{ duration: 0.45 }}
+                    className="perspective-section"
                   >
+                    <TiltCard intensity={14} className="h-full">
+                    <div className="group relative aspect-square overflow-hidden rounded-2xl glass glow-border">
                     <img
                       src={img}
                       alt={`Mooning Monkey NFT ${current + i + 1}`}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-void/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                    <div className="absolute bottom-3 left-3 font-mono text-xs text-cyan-glow opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="absolute bottom-3 left-3 text-xs font-semibold text-cyan-glow opacity-0 transition-opacity group-hover:opacity-100">
                       #{String(current + i + 1).padStart(4, '0')}
                     </div>
+                    </div>
+                    </TiltCard>
                   </motion.div>
                 ))}
               </AnimatePresence>

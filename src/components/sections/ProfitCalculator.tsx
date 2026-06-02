@@ -32,7 +32,7 @@ export function ProfitCalculator() {
   const profit = (bet * multiplier).toFixed(2);
 
   return (
-    <AnimatedSection id="calculator" className="section-padding relative overflow-hidden">
+    <AnimatedSection id="calculator" mesh="mixed" className="section-padding overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
         style={{ backgroundImage: `url(${assets.sec2Bg})` }}

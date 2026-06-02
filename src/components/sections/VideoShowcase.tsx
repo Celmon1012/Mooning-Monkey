@@ -3,7 +3,10 @@ import { Play } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { assets, links } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
+import { Reveal3D } from '../ui/Reveal3D';
 import { SectionHeading } from '../ui/SectionHeading';
+import { TiltCard } from '../ui/TiltCard';
+import { VideoBackground } from '../ui/VideoBackground';
 
 export function VideoShowcase() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -21,25 +24,27 @@ export function VideoShowcase() {
   };
 
   return (
-    <AnimatedSection id="video" className="section-padding relative overflow-hidden">
+    <AnimatedSection id="video" mesh="mixed" className="section-padding overflow-hidden">
+      <VideoBackground
+        src={assets.video}
+        poster={assets.heroBg}
+        opacity={0.22}
+        parallax
+        overlayClassName="bg-gradient-to-b from-void/92 via-void/85 to-void"
+      />
       <div className="absolute inset-0 bg-hero-glow" />
 
-      <div className="relative mx-auto max-w-5xl">
+      <div className="relative z-10 mx-auto max-w-5xl">
         <SectionHeading
           label="Experience"
           title="Witness The Space Odyssey"
           subtitle="Watch the Mooning Monkeys embark on their epic journey through the cosmos."
         />
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="relative"
-        >
+        <Reveal3D className="relative">
+          <TiltCard intensity={6}>
           {/* Glow frame */}
-          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-cyan-glow/40 via-purple-glow/40 to-magenta-glow/40 blur-sm" />
+          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-cyan-glow/40 via-purple-glow/40 to-magenta-glow/40 blur-sm animate-glow-pulse" />
 
           <div className="relative overflow-hidden rounded-3xl glass-strong glow-border">
             <div className="relative aspect-video bg-void">
@@ -91,7 +96,8 @@ export function VideoShowcase() {
               </a>
             </div>
           </div>
-        </motion.div>
+          </TiltCard>
+        </Reveal3D>
       </div>
     </AnimatedSection>
   );

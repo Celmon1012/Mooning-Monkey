@@ -57,21 +57,21 @@ export function FinalCTA() {
             className="mt-12 inline-flex flex-col items-center gap-2 rounded-2xl glass px-8 py-6 sm:flex-row sm:gap-8"
           >
             <div>
-              <div className="font-mono text-xs uppercase tracking-widest text-white/40">
+              <div className="font-sansation text-xs uppercase tracking-widest text-white/40">
                 Total Supply
               </div>
               <div className="font-display text-2xl font-bold text-cyan-glow">12,000</div>
             </div>
             <div className="hidden h-8 w-px bg-white/10 sm:block" />
             <div>
-              <div className="font-mono text-xs uppercase tracking-widest text-white/40">
+              <div className="font-sansation text-xs uppercase tracking-widest text-white/40">
                 Max Per Wallet
               </div>
               <div className="font-display text-2xl font-bold text-purple-glow">12</div>
             </div>
             <div className="hidden h-8 w-px bg-white/10 sm:block" />
             <div>
-              <div className="font-mono text-xs uppercase tracking-widest text-white/40">
+              <div className="font-sansation text-xs uppercase tracking-widest text-white/40">
                 Blockchain
               </div>
               <div className="font-display text-2xl font-bold text-white">Solana</div>

@@ -1,0 +1,16 @@
+/* Original Mooning Monkey fonts from https://moon-monkey.netlify.app/ */
+@font-face {
+  font-family: 'Nurom';
+  src: url('/fonts/Nurom-Bold.ttf') format('truetype');
+  font-weight: 500 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sansation';
+  src: url('/fonts/Sansation-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

@@ -10,7 +10,7 @@ export function Team() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <AnimatedSection id="team" className="section-padding relative">
+    <AnimatedSection id="team" mesh="purple" className="section-padding">
       <div className="absolute inset-0 bg-hero-glow" />
 
       <div className="relative mx-auto max-w-7xl">
@@ -41,7 +41,7 @@ export function Team() {
                   <div className="absolute inset-0 bg-gradient-to-t from-void via-void/20 to-transparent" />
                 </div>
                 <div className="p-4">
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-cyan-glow">
+                  <p className="font-sansation text-[10px] uppercase tracking-widest text-cyan-glow">
                     {member.role}
                   </p>
                   <h4 className="mt-1 font-display font-semibold text-white">{member.title}</h4>

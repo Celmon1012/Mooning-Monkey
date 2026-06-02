@@ -1,16 +1,29 @@
 import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
+import { useRef } from 'react';
 import { assets, links } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
 import { Button } from '../ui/Button';
+import { Floating3D } from '../ui/Floating3D';
+import { Reveal3D } from '../ui/Reveal3D';
 import { SectionHeading } from '../ui/SectionHeading';
+import { useParallax } from '../ui/useParallax';
 
 export function ComicSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const bgY = useParallax(sectionRef, ['-10%', '10%']);
+
   return (
-    <AnimatedSection id="comic" className="section-padding relative overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-10"
-        style={{ backgroundImage: `url(${assets.comicBg})` }}
+    <AnimatedSection
+      ref={sectionRef}
+      id="comic"
+      mesh="purple"
+      className="section-padding overflow-hidden"
+    >
+      <motion.div
+        className="absolute inset-0 scale-110 bg-cover bg-center opacity-[0.12]"
+        style={{ backgroundImage: `url(${assets.comicBg})`, y: bgY }}
+        aria-hidden
       />
       <div className="absolute inset-0 bg-gradient-to-b from-void via-transparent to-void" />
 
@@ -21,27 +34,19 @@ export function ComicSection() {
           subtitle="An intriguing, action-packed story in Limited Digital NFT Edition — 4 comic books of 14 pages each."
         />
 
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative order-2 lg:order-1"
-          >
-            <div className="absolute -inset-3 rounded-3xl bg-purple-glow/10 blur-2xl" />
-            <img
-              src={assets.comicBg}
-              alt="Mooning Monkey Comic Book"
-              className="relative rounded-2xl border border-white/10 shadow-glow-lg"
-            />
-          </motion.div>
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
+          <Reveal3D direction="left" className="relative order-2 lg:order-1">
+            <Floating3D floatIntensity={12} tiltIntensity={14}>
+              <div className="absolute -inset-3 rounded-3xl bg-purple-glow/15 blur-2xl animate-glow-pulse" />
+              <img
+                src={assets.comicBg}
+                alt="Mooning Monkey Comic Book"
+                className="relative rounded-2xl border border-white/10 shadow-glow-lg"
+              />
+            </Floating3D>
+          </Reveal3D>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="order-1 lg:order-2"
-          >
+          <Reveal3D direction="right" className="order-1 lg:order-2">
             <BookOpen className="mb-4 h-8 w-8 text-purple-glow" />
             <p className="text-white/60 leading-relaxed">
               This story will bring back the excitement you had as a kid reading your favorite
@@ -67,7 +72,7 @@ export function ComicSection() {
                 Check Out Comic Page
               </Button>
             </div>
-          </motion.div>
+          </Reveal3D>
         </div>
       </div>
     </AnimatedSection>

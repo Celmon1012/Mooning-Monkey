@@ -13,7 +13,7 @@ const statusColors = {
 
 export function Roadmap() {
   return (
-    <AnimatedSection id="roadmap" className="section-padding relative">
+    <AnimatedSection id="roadmap" mesh="cyan" className="section-padding">
       <div className="absolute inset-0 bg-gradient-to-b from-cosmic/30 via-void to-void" />
 
       <div className="relative mx-auto max-w-7xl">
@@ -23,7 +23,7 @@ export function Roadmap() {
           subtitle="Everything you need to know about the epic space journey your Mooning Monkeys are about to go on, before they take off."
         />
 
-        <div className="grid gap-16 lg:grid-cols-2">
+        <div className="grid gap-10 lg:grid-cols-2">
           {/* Pre-Launch Progress */}
           <div>
             <h3 className="mb-8 font-display text-xl font-bold text-cyan-glow">
@@ -65,7 +65,7 @@ export function Roadmap() {
                     {/* Content */}
                     <div className="glass flex-1 rounded-xl p-4">
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-sm font-bold text-cyan-glow">
+                        <span className="font-sansation text-sm font-bold text-cyan-glow">
                           {phase.percentage}%
                         </span>
                         <span
@@ -112,7 +112,7 @@ export function Roadmap() {
                         className="h-full w-full object-cover opacity-60"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-void to-transparent" />
-                      <span className="absolute bottom-3 left-4 font-mono text-xs text-cyan-glow">
+                      <span className="absolute bottom-3 left-4 font-sansation text-xs text-cyan-glow">
                         {item.quarter}
                       </span>
                     </div>
