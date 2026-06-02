@@ -68,5 +68,5 @@ export const links = {
   docs: 'https://mooningmonkeyofficial.gitbook.io/mooning-monkey/',
   phantom: 'https://phantom.app/',
   whitelist: 'https://gleam.io/K258w/mooning-monkey-official-whitelist-lottery',
-  buyNow: '#mint',
+  buyNow: '#buy',
 } as const;

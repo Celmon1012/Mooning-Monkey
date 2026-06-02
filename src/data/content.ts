@@ -49,9 +49,11 @@ export const navLinks: NavLink[] = [
   { label: 'Story', href: '#about' },
   { label: 'Evolution', href: '#evolution' },
   { label: 'Collection', href: '#collection' },
+  { label: 'Comic', href: '#comic' },
   { label: 'Token', href: '#token' },
   { label: 'Roadmap', href: '#roadmap' },
-  { label: 'Community', href: '#community' },
+  { label: 'Team', href: '#team' },
+  { label: 'FAQ', href: '#faq' },
 ];
 
 export const evolutionStages: EvolutionStage[] = [
@@ -237,16 +239,75 @@ export const faqs = [
   {
     question: 'What are Mooning Monkeys?',
     answer:
-      '12,000 exclusive characters with unique characteristics. A celebration for gaming that encourages gamers to join the NFT community while potentially making money.',
+      'The Mooning Monkeys are 12,000 exclusive characters that ALL have unique characteristics. The Mooning Monkeys NFT Game is a celebration for gaming — join the NFT community, make connections, and potentially earn along the way.',
   },
   {
     question: 'Where can I buy one?',
     answer:
-      'Mooning Monkeys NFT will be available on the Official Website MooningMonkey.com ONLY.',
+      'Mooning Monkeys NFT will be available on our Official Website MooningMonkey.com ONLY.',
+  },
+  {
+    question: 'When can I mint?',
+    answer:
+      'Minting opens 16 December at 7PM UTC. The final amount in SOL will be updated 12 hours before the minting event. We want everything PERFECT before launch.',
   },
   {
     question: 'How are we different?',
     answer:
-      'Built upon Real World UTILITY and RARITY — earn passive rewards through a sustainable model designed to last.',
+      'Real World UTILITY and RARITY — two qualities we built Mooning Monkeys upon. Earn passive rewards through a sustainable model designed to last.',
+  },
+  {
+    question: "Who's on the team?",
+    answer:
+      'Gamers, NFT enthusiasts, comic book fans and crypto degens who love those things and want to create a community where like-minded individuals talk about their passions and passively earn rewards.',
+  },
+];
+
+export interface TeamMember {
+  role: string;
+  title: string;
+  bio: string;
+}
+
+export const teamMembers: TeamMember[] = [
+  {
+    role: 'Operation',
+    title: 'Mission Control',
+    bio: 'The mooning monkey overseeing and coordinating the entire space mission.',
+  },
+  {
+    role: 'NFT Artist',
+    title: 'Visual Architect',
+    bio: 'Crafting 239 distinctive traits — far beyond pixel randomizers.',
+  },
+  {
+    role: 'Comic Artist',
+    title: 'Story Illustrator',
+    bio: 'Bringing the Mooning Monkey Space Odyssey to life across 4 epic chapters.',
+  },
+  {
+    role: 'Blockchain Dev',
+    title: 'Smart Contract Lead',
+    bio: 'A coordinated team of paranoid monkeys double-checking every on-chain detail.',
+  },
+  {
+    role: 'Game Dev',
+    title: 'Crash Game Builder',
+    bio: 'Building the multiplayer crash experience that keeps everyone on the edge.',
+  },
+  {
+    role: 'Web Dev',
+    title: 'Platform Engineer',
+    bio: 'Navigating through space requires someone who knows the digital cosmos.',
+  },
+  {
+    role: 'Web Design',
+    title: 'Experience Designer',
+    bio: 'Creating immersive interfaces worthy of an intergalactic mission.',
+  },
+  {
+    role: 'Marketing',
+    title: 'Growth Lead',
+    bio: 'An experienced team spreading the Mooning Monkey story across the galaxy.',
   },
 ];

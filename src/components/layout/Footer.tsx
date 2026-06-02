@@ -1,6 +1,16 @@
 import { assets, links } from '../../data/assets';
 import { navLinks } from '../../data/content';
 
+const footerLinks = [
+  { label: 'Buy Now', href: '#buy' },
+  { label: 'Token', href: '#token' },
+  { label: 'Membership', href: '#membership' },
+  { label: 'Comic', href: '#comic' },
+  { label: 'Calculator', href: '#calculator' },
+  { label: 'Whitelist', href: links.whitelist },
+  { label: 'One Pager', href: links.docs },
+];
+
 export function Footer() {
   return (
     <footer className="relative border-t border-white/10 bg-nebula/50">
@@ -40,19 +50,21 @@ export function Footer() {
               Resources
             </h4>
             <ul className="space-y-2">
-              <li>
-                <a href={links.docs} className="text-sm text-white/50 hover:text-cyan-glow">
-                  Documentation
-                </a>
-              </li>
+              {footerLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="text-sm text-white/50 hover:text-cyan-glow"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a href={links.phantom} className="text-sm text-white/50 hover:text-cyan-glow">
-                  Get Phantom Wallet
-                </a>
-              </li>
-              <li>
-                <a href="#roadmap" className="text-sm text-white/50 hover:text-cyan-glow">
-                  Roadmap
+                  Phantom Wallet
                 </a>
               </li>
             </ul>
@@ -63,7 +75,7 @@ export function Footer() {
           <p className="text-xs text-white/40">
             Copyright © {new Date().getFullYear()} Mooning Monkey. All rights reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             <a href={links.discord} className="text-xs text-white/40 hover:text-cyan-glow">
               Discord
             </a>

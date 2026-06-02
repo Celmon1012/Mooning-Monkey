@@ -30,7 +30,7 @@ export function Hero() {
       <div className="hero-vignette absolute inset-0" />
       <div className="hero-mesh absolute inset-0" />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-20 pt-28 sm:px-8 sm:pt-32 lg:pb-24">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-20 pt-8 sm:px-8 sm:pt-10 lg:pb-24">
         <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 xl:gap-20">
           {/* Left */}
           <div className="max-w-xl lg:max-w-none">

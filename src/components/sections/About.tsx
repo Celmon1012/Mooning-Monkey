@@ -57,14 +57,26 @@ export function About() {
               {[
                 'Multiplayer crash game with real rewards',
                 'Co-own and profit from game revenue',
-                'Interactive profit calculator available',
+                'Try the profit calculator while we prepare launch',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-white/70">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-glow" />
-                  {item}
+                  {item === 'Try the profit calculator while we prepare launch' ? (
+                    <a href="#calculator" className="text-cyan-glow hover:text-white">
+                      {item}
+                    </a>
+                  ) : (
+                    item
+                  )}
                 </li>
               ))}
             </ul>
+            <a
+              href="#calculator"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-purple-glow hover:text-white"
+            >
+              Profit Calculator →
+            </a>
           </motion.div>
         </div>
 
@@ -124,7 +136,7 @@ export function About() {
         </div>
 
         {/* Membership Benefits Grid */}
-        <div>
+        <div id="membership">
           <SectionHeading
             label="Membership"
             title="Exclusive Holder Privileges"

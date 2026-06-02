@@ -9,6 +9,10 @@
     scroll-behavior: smooth;
   }
 
+  [id] {
+    scroll-margin-top: 8.5rem;
+  }
+
   body {
     @apply bg-void font-body text-white antialiased;
     overflow-x: hidden;
@@ -96,6 +100,35 @@
     box-shadow:
       0 0 0 1px rgba(255, 255, 255, 0.04) inset,
       0 32px 100px -20px rgba(0, 0, 0, 0.65);
+  }
+
+  .mint-panel {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.02) 40%,
+      rgba(3, 0, 20, 0.4) 100%
+    );
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+      0 40px 120px -40px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(24px);
+  }
+
+  .mint-tab-track {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .mint-tab-active {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  }
+
+  .countdown-cell {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .section-padding {
