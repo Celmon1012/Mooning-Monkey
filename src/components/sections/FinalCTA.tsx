@@ -2,14 +2,10 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Rocket } from 'lucide-react';
 import { assets, links } from '../../data/assets';
 import { Button } from '../ui/Button';
-import { GalaxyBackground } from '../ui/GalaxyBackground';
-import { Particles } from '../ui/Particles';
-
 export function FinalCTA() {
   return (
     <section id="mint" className="relative overflow-hidden py-24 sm:py-32 lg:py-40">
-      <GalaxyBackground />
-      <Particles count={30} />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-nebula via-void to-void" />
 
       <div
         className="absolute inset-0 bg-cover bg-center opacity-10"
@@ -28,11 +24,11 @@ export function FinalCTA() {
             transition={{ duration: 4, repeat: Infinity }}
             className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-glow/20 to-purple-glow/20"
           >
-            <Rocket className="h-10 w-10 text-cyan-glow" />
+            <Rocket className="h-10 w-10 text-accent" />
           </motion.div>
 
           <h2 className="font-display text-4xl font-extrabold sm:text-5xl lg:text-6xl">
-            <span className="gradient-text">Take Off Is Imminent</span>
+            <span className="accent-word">Take Off Is Imminent</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-white/60 sm:text-xl">
             Suit up and get ready. Join the greatest space mission of all time and become a
@@ -57,21 +53,21 @@ export function FinalCTA() {
             className="mt-12 inline-flex flex-col items-center gap-2 rounded-2xl glass px-8 py-6 sm:flex-row sm:gap-8"
           >
             <div>
-              <div className="font-sansation text-xs uppercase tracking-widest text-white/40">
+              <div className="font-body text-xs uppercase tracking-widest text-white/40">
                 Total Supply
               </div>
-              <div className="font-display text-2xl font-bold text-cyan-glow">12,000</div>
+              <div className="font-display text-2xl font-bold text-accent">12,000</div>
             </div>
             <div className="hidden h-8 w-px bg-white/10 sm:block" />
             <div>
-              <div className="font-sansation text-xs uppercase tracking-widest text-white/40">
+              <div className="font-body text-xs uppercase tracking-widest text-white/40">
                 Max Per Wallet
               </div>
-              <div className="font-display text-2xl font-bold text-purple-glow">12</div>
+              <div className="font-display text-2xl font-bold text-white/70">12</div>
             </div>
             <div className="hidden h-8 w-px bg-white/10 sm:block" />
             <div>
-              <div className="font-sansation text-xs uppercase tracking-widest text-white/40">
+              <div className="font-body text-xs uppercase tracking-widest text-white/40">
                 Blockchain
               </div>
               <div className="font-display text-2xl font-bold text-white">Solana</div>

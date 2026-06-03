@@ -34,6 +34,7 @@ export function HeroCinematicScene() {
         opacity={0.58}
         parallax={false}
         videoScale={1.35}
+        playWhenVisible={false}
         overlayClassName="bg-transparent"
         className="!absolute inset-0"
       />
@@ -43,10 +44,8 @@ export function HeroCinematicScene() {
 
       {/* Massive parallax nebula — fills viewport like Lumia */}
       <motion.div style={{ x: orbX, y: orbY }} className="absolute inset-0">
-        <div className="absolute -left-[30%] top-[-25%] h-[140vmin] w-[140vmin] rounded-full bg-purple-glow/35 blur-[140px]" />
-        <div className="absolute -right-[25%] top-[5%] h-[120vmin] w-[120vmin] rounded-full bg-cyan-glow/28 blur-[130px]" />
-        <div className="absolute bottom-[-20%] left-[15%] h-[100vmin] w-[100vmin] rounded-full bg-magenta-glow/22 blur-[120px]" />
-        <div className="absolute left-1/2 top-1/2 h-[90vmin] w-[90vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5dc7fe]/10 blur-[100px]" />
+        <div className="absolute -left-[20%] top-[-15%] h-[80vmin] w-[80vmin] rounded-full bg-purple-glow/25 blur-[80px]" />
+        <div className="absolute -right-[15%] top-[10%] h-[70vmin] w-[70vmin] rounded-full bg-cyan-glow/20 blur-[70px]" />
       </motion.div>
 
       {/* Animated light beams */}
@@ -74,7 +73,7 @@ export function HeroCinematicScene() {
         }}
       />
 
-      <Particles count={36} />
+      <Particles count={14} />
 
       {/* Side depth image — crash game atmosphere */}
       <motion.div

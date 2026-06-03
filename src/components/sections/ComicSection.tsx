@@ -3,8 +3,8 @@ import { BookOpen } from 'lucide-react';
 import { useRef } from 'react';
 import { assets, links } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
+import { LazyImage } from '../ui/LazyImage';
 import { Button } from '../ui/Button';
-import { Floating3D } from '../ui/Floating3D';
 import { Reveal3D } from '../ui/Reveal3D';
 import { SectionHeading } from '../ui/SectionHeading';
 import { useParallax } from '../ui/useParallax';
@@ -36,18 +36,15 @@ export function ComicSection() {
 
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
           <Reveal3D direction="left" className="relative order-2 lg:order-1">
-            <Floating3D floatIntensity={12} tiltIntensity={14}>
-              <div className="absolute -inset-3 rounded-3xl bg-purple-glow/15 blur-2xl animate-glow-pulse" />
-              <img
-                src={assets.comicBg}
-                alt="Mooning Monkey Comic Book"
-                className="relative rounded-2xl border border-white/10 shadow-glow-lg"
-              />
-            </Floating3D>
+            <LazyImage
+              src={assets.comicBg}
+              alt="Mooning Monkey Comic Book"
+              className="rounded-lg border border-white/[0.08] shadow-lift"
+            />
           </Reveal3D>
 
           <Reveal3D direction="right" className="order-1 lg:order-2">
-            <BookOpen className="mb-4 h-8 w-8 text-purple-glow" />
+            <BookOpen className="mb-4 h-8 w-8 text-white/70" />
             <p className="text-white/60 leading-relaxed">
               This story will bring back the excitement you had as a kid reading your favorite
               comic books — fantasizing about limitless worlds and opportunities.

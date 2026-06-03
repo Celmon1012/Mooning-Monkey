@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Check, MessageCircle, Play, Send } from 'lucide-react';
 import { assets, links } from '../../data/assets';
 import { HeroCinematicScene } from '../ui/HeroCinematicScene';
+import { LazyImage } from '../ui/LazyImage';
 import { Reveal3D } from '../ui/Reveal3D';
 import { TiltCard } from '../ui/TiltCard';
 
@@ -26,23 +27,22 @@ export function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.92fr] lg:gap-10 xl:gap-14">
           {/* Left — copy stays readable over cinematic bg */}
           <div className="relative max-w-xl lg:max-w-none">
-            <Reveal3D immediate delay={0} className="mb-7 flex items-center gap-3 sm:mb-8">
-              <span className="h-px w-8 bg-gradient-to-r from-cyan-glow/60 to-transparent" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">
-                Solana NFT Ecosystem
-              </span>
+            <Reveal3D immediate delay={0} className="mb-6 sm:mb-7">
+              <p className="font-body text-xs font-medium uppercase tracking-[2px] text-white/55">
+                Solana NFT ecosystem
+              </p>
             </Reveal3D>
 
             <Reveal3D immediate delay={0.08}>
-              <h1 className="font-display flex flex-col gap-3 text-[2.25rem] font-medium uppercase leading-[1.28] text-white sm:gap-4 sm:text-4xl sm:leading-[1.26] lg:text-[2.85rem] lg:leading-[1.24] xl:text-[3.25rem] xl:leading-[1.22]">
-                <span className="block drop-shadow-lg">Onboard the greatest</span>
-                <span className="hero-headline-accent block drop-shadow-lg">space mission</span>
-                <span className="block text-white/90 drop-shadow-md">of all time.</span>
+              <h1 className="font-brand flex flex-col gap-2 text-[2rem] font-medium leading-[1.15] text-white sm:gap-3 sm:text-[2.35rem] lg:text-[2.75rem] xl:text-[3rem]">
+                <span className="block">Onboard the greatest</span>
+                <span className="hero-headline-accent block">space mission</span>
+                <span className="block text-white/85">of all time.</span>
               </h1>
             </Reveal3D>
 
             <Reveal3D immediate delay={0.14}>
-              <p className="mt-8 max-w-md text-sm leading-relaxed text-white/60 sm:mt-9 sm:text-[15px]">
+              <p className="mt-6 max-w-md text-[15px] leading-[1.65] text-white/65 sm:mt-8">
                 Exclusive NFT art, co-owned crash game economics, and passive $TAK
                 rewards — built for a galactic community that values utility as much as
                 rarity.
@@ -102,9 +102,10 @@ export function Hero() {
               <div className="hero-showcase overflow-hidden rounded-2xl border border-white/[0.1] bg-void/50 shadow-[0_32px_100px_-20px_rgba(0,0,0,0.65)] backdrop-blur-xl">
                 <a href="#about" className="group relative block">
                   <div className="relative aspect-[5/3] overflow-hidden sm:aspect-[16/10]">
-                    <img
+                    <LazyImage
                       src={assets.sec4Front}
                       alt="Mooning Monkey Crash Game"
+                      priority
                       className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-[#030014]/50 to-transparent" />
@@ -149,7 +150,7 @@ export function Hero() {
                         className="relative h-11 w-11 overflow-hidden rounded-full border-2 border-[#0a0618] ring-1 ring-white/10 transition-transform hover:z-10 hover:scale-110 sm:h-12 sm:w-12"
                         style={{ zIndex: 5 - i }}
                       >
-                        <img src={img} alt="" className="h-full w-full object-cover" />
+                        <LazyImage src={img} alt="" className="h-full w-full object-cover" />
                       </a>
                     ))}
                     <a

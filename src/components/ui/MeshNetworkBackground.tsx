@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 
 interface MeshNetworkBackgroundProps {
   className?: string;
-  /** 0–1 overall visibility */
   intensity?: number;
   variant?: 'cyan' | 'purple' | 'mixed';
 }
@@ -22,6 +21,28 @@ const COLORS = {
   mixed: { node: '255, 255, 255', line: '93, 199, 254' },
 };
 
+/** Shared mouse position — one listener for all mesh instances */
+const sharedMouse = { x: 0, y: 0 };
+let mouseListenerCount = 0;
+
+function attachSharedMouse() {
+  if (mouseListenerCount++ > 0) return;
+  const onMove = (e: MouseEvent) => {
+    sharedMouse.x = (e.clientX / window.innerWidth - 0.5) * 0.35;
+    sharedMouse.y = (e.clientY / window.innerHeight - 0.5) * 0.35;
+  };
+  window.addEventListener('mousemove', onMove, { passive: true });
+  (attachSharedMouse as { off?: () => void }).off = () => {
+    window.removeEventListener('mousemove', onMove);
+  };
+}
+
+function detachSharedMouse() {
+  if (--mouseListenerCount === 0) {
+    (attachSharedMouse as { off?: () => void }).off?.();
+  }
+}
+
 export function MeshNetworkBackground({
   className = '',
   intensity = 0.85,
@@ -30,21 +51,24 @@ export function MeshNetworkBackground({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const visibleRef = useRef(true);
+  const runningRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     const colors = COLORS[variant];
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const nodeCount = isMobile ? 55 : 95;
-    const connectDist = isMobile ? 110 : 140;
+    const nodeCount = isMobile ? 28 : 42;
+    const connectDist = isMobile ? 95 : 115;
+    const connectDistSq = connectDist * connectDist;
+    const fpsCap = isMobile ? 30 : 45;
+    const frameInterval = 1000 / fpsCap;
+    let lastFrame = 0;
 
     const nodes: Node3D[] = Array.from({ length: nodeCount }, () => ({
       x: (Math.random() - 0.5) * 2.2,
@@ -55,11 +79,15 @@ export function MeshNetworkBackground({
       oz: (Math.random() - 0.5) * 0.002,
     }));
 
+    let inView = false;
+    let tabVisible = !document.hidden;
+
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio, 2);
+      const dpr = Math.min(window.devicePixelRatio, 1.5);
       const { width, height } = container.getBoundingClientRect();
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      if (width === 0 || height === 0) return;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -67,36 +95,57 @@ export function MeshNetworkBackground({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        visibleRef.current = entry.isIntersecting;
+        inView = entry.isIntersecting;
+        if (inView && tabVisible && !runningRef.current) {
+          runningRef.current = true;
+          rafRef.current = requestAnimationFrame(draw);
+        }
       },
-      { threshold: 0.05 },
+      { rootMargin: '80px 0px', threshold: 0.01 },
     );
     observer.observe(container);
+    inView = container.getBoundingClientRect().top < window.innerHeight + 120;
 
-    const onMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      mouseRef.current = {
-        x: ((e.clientX - rect.left) / rect.width - 0.5) * 0.35,
-        y: ((e.clientY - rect.top) / rect.height - 0.5) * 0.35,
-      };
+    const onVisibility = () => {
+      tabVisible = !document.hidden;
+      if (!tabVisible) {
+        cancelAnimationFrame(rafRef.current);
+        runningRef.current = false;
+      } else if (inView && !runningRef.current) {
+        runningRef.current = true;
+        rafRef.current = requestAnimationFrame(draw);
+      }
     };
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', onVisibility);
+
+    attachSharedMouse();
+    window.addEventListener('resize', resize, { passive: true });
     resize();
 
     let t = 0;
 
-    const draw = () => {
-      rafRef.current = requestAnimationFrame(draw);
-      if (!visibleRef.current) return;
+    const draw = (now: number) => {
+      if (!inView || !tabVisible) {
+        runningRef.current = false;
+        return;
+      }
+
+      if (now - lastFrame < frameInterval) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      lastFrame = now;
 
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
-      if (w === 0 || h === 0) return;
+      if (w === 0 || h === 0) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
 
       t += 0.004;
-      const mx = mouseRef.current.x;
-      const my = mouseRef.current.y;
+      const mx = sharedMouse.x;
+      const my = sharedMouse.y;
 
       ctx.clearRect(0, 0, w, h);
 
@@ -107,7 +156,7 @@ export function MeshNetworkBackground({
       const cosX = Math.cos(rotX);
       const sinX = Math.sin(rotX);
 
-      const projected: { sx: number; sy: number; scale: number; z: number }[] = [];
+      const projected: { sx: number; sy: number; scale: number }[] = [];
 
       for (const n of nodes) {
         n.x += n.ox;
@@ -117,35 +166,34 @@ export function MeshNetworkBackground({
         if (Math.abs(n.y) > 1.2) n.oy *= -1;
         if (Math.abs(n.z) > 1.2) n.oz *= -1;
 
-        let x1 = n.x * cosY - n.z * sinY;
-        let z1 = n.x * sinY + n.z * cosY;
-        let y1 = n.y * cosX - z1 * sinX;
-        let z2 = n.y * sinX + z1 * cosX;
+        const x1 = n.x * cosY - n.z * sinY;
+        const z1 = n.x * sinY + n.z * cosY;
+        const y1 = n.y * cosX - z1 * sinX;
+        const z2 = n.y * sinX + z1 * cosX;
 
         const perspective = 2.8 / (2.8 + z2);
         projected.push({
           sx: w / 2 + x1 * w * 0.42 * perspective,
           sy: h / 2 + y1 * h * 0.38 * perspective,
           scale: perspective,
-          z: z2,
         });
       }
 
-      // Lines — back to front feel via z sort on connections
+      ctx.lineWidth = 0.8;
       for (let i = 0; i < projected.length; i++) {
+        const a = projected[i];
         for (let j = i + 1; j < projected.length; j++) {
-          const a = projected[i];
           const b = projected[j];
           const dx = a.sx - b.sx;
           const dy = a.sy - b.sy;
-          const dist = Math.hypot(dx, dy);
-          if (dist > connectDist) continue;
+          const distSq = dx * dx + dy * dy;
+          if (distSq > connectDistSq) continue;
 
+          const dist = Math.sqrt(distSq);
           const depth = (a.scale + b.scale) / 2;
-          const alpha = (1 - dist / connectDist) * depth * 0.35 * intensity;
-          ctx.beginPath();
+          const alpha = (1 - dist / connectDist) * depth * 0.32 * intensity;
           ctx.strokeStyle = `rgba(${colors.line}, ${alpha})`;
-          ctx.lineWidth = 0.6 + depth * 0.5;
+          ctx.beginPath();
           ctx.moveTo(a.sx, a.sy);
           ctx.lineTo(b.sx, b.sy);
           ctx.stroke();
@@ -153,24 +201,33 @@ export function MeshNetworkBackground({
       }
 
       for (const p of projected) {
-        const alpha = p.scale * 0.55 * intensity;
-        const radius = (1.2 + p.scale * 2) * intensity;
-        const grad = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, radius * 3);
-        grad.addColorStop(0, `rgba(${colors.node}, ${alpha})`);
-        grad.addColorStop(1, `rgba(${colors.node}, 0)`);
-        ctx.fillStyle = grad;
+        const alpha = p.scale * 0.5 * intensity;
+        const radius = (1 + p.scale * 1.8) * intensity;
+        ctx.fillStyle = `rgba(${colors.node}, ${alpha})`;
         ctx.beginPath();
         ctx.arc(p.sx, p.sy, radius, 0, Math.PI * 2);
         ctx.fill();
       }
+
+      rafRef.current = requestAnimationFrame(draw);
     };
 
-    draw();
+    const startLoop = () => {
+      if (!runningRef.current && inView && tabVisible) {
+        runningRef.current = true;
+        rafRef.current = requestAnimationFrame(draw);
+      }
+    };
+    startLoop();
+    const startTimer = window.setTimeout(startLoop, 0);
 
     return () => {
+      window.clearTimeout(startTimer);
       cancelAnimationFrame(rafRef.current);
+      runningRef.current = false;
       observer.disconnect();
-      window.removeEventListener('mousemove', onMove);
+      document.removeEventListener('visibilitychange', onVisibility);
+      detachSharedMouse();
       window.removeEventListener('resize', resize);
     };
   }, [intensity, variant]);

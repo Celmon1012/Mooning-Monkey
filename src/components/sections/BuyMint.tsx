@@ -3,7 +3,7 @@ import { ArrowRight, ExternalLink, Minus, PlayCircle, Plus, Wallet } from 'lucid
 import { useEffect, useState } from 'react';
 import { assets, links } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
-import { VideoBackground } from '../ui/VideoBackground';
+import { PosterBackground } from '../ui/PosterBackground';
 
 type MintTab = 'buy' | 'phantom';
 
@@ -135,16 +135,10 @@ export function BuyMint() {
       id="buy"
       className="relative overflow-hidden px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16"
     >
-      <VideoBackground
-        src={assets.video}
-        poster={assets.sec3Bg}
-        opacity={0.15}
-        parallax
+      <PosterBackground
+        src={assets.sec3Bg}
+        opacity={0.14}
         overlayClassName="bg-gradient-to-t from-void via-void/90 to-void"
-      />
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
-        style={{ backgroundImage: `url(${assets.sec3Bg})` }}
       />
       <div className="hero-vignette absolute inset-0" />
 
@@ -303,7 +297,7 @@ export function BuyMint() {
                       <ol className="space-y-4">
                         {phantomSteps.slice(0, 2).map((step) => (
                           <li key={step.n} className="flex gap-3">
-                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-xs font-medium text-cyan-glow">
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-xs font-medium text-accent">
                               {step.n}
                             </span>
                             <p className="pt-0.5 text-sm leading-snug text-white/55">
@@ -313,7 +307,7 @@ export function BuyMint() {
                                   href={step.link.href}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="font-medium text-white/85 hover:text-cyan-glow"
+                                  className="font-medium text-white/85 hover:text-white"
                                 >
                                   {step.link.label}
                                 </a>
@@ -328,7 +322,7 @@ export function BuyMint() {
                       <ol className="space-y-4">
                         {phantomSteps.slice(2).map((step) => (
                           <li key={step.n} className="flex gap-3">
-                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-xs font-medium text-cyan-glow">
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-xs font-medium text-accent">
                               {step.n}
                             </span>
                             <p className="pt-0.5 text-sm leading-snug text-white/55">{step.text}</p>

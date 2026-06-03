@@ -3,10 +3,16 @@ import {
   Coins,
   Gamepad2,
   Gift,
+  HelpCircle,
+  Images,
+  Layers,
+  Map,
   Rocket,
+  ScrollText,
   Shield,
   Sparkles,
   TrendingUp,
+  Users,
   Zap,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -14,6 +20,7 @@ import type { LucideIcon } from 'lucide-react';
 export interface NavLink {
   label: string;
   href: string;
+  icon: LucideIcon;
 }
 
 export interface EvolutionStage {
@@ -45,16 +52,43 @@ export interface TimelineItem {
   items: string[];
 }
 
-export const navLinks: NavLink[] = [
-  { label: 'Story', href: '#about' },
-  { label: 'Evolution', href: '#evolution' },
-  { label: 'Collection', href: '#collection' },
-  { label: 'Comic', href: '#comic' },
-  { label: 'Token', href: '#token' },
-  { label: 'Roadmap', href: '#roadmap' },
-  { label: 'Team', href: '#team' },
-  { label: 'FAQ', href: '#faq' },
+export interface NavMenuGroup {
+  label: string;
+  icon: LucideIcon;
+  items: NavLink[];
+}
+
+export const navMenuGroups: NavMenuGroup[] = [
+  {
+    label: 'Project',
+    icon: Layers,
+    items: [
+      { label: 'Story', href: '#about', icon: ScrollText },
+      { label: 'Evolution', href: '#evolution', icon: Sparkles },
+      { label: 'Collection', href: '#collection', icon: Images },
+      { label: 'Comic', href: '#comic', icon: BookOpen },
+    ],
+  },
+  {
+    label: 'Ecosystem',
+    icon: Coins,
+    items: [
+      { label: 'Token', href: '#token', icon: Zap },
+      { label: 'Roadmap', href: '#roadmap', icon: Map },
+    ],
+  },
+  {
+    label: 'Community',
+    icon: Users,
+    items: [
+      { label: 'Team', href: '#team', icon: Users },
+      { label: 'FAQ', href: '#faq', icon: HelpCircle },
+    ],
+  },
 ];
+
+/** Flat list for footer and mobile search */
+export const navLinks: NavLink[] = navMenuGroups.flatMap((group) => group.items);
 
 export const evolutionStages: EvolutionStage[] = [
   {

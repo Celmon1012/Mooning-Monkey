@@ -3,6 +3,7 @@ import { Check, Circle } from 'lucide-react';
 import { assets } from '../../data/assets';
 import { postLaunchTimeline, preLaunchRoadmap } from '../../data/content';
 import { AnimatedSection } from '../ui/AnimatedSection';
+import { LazyImage } from '../ui/LazyImage';
 import { SectionHeading } from '../ui/SectionHeading';
 
 const statusColors = {
@@ -23,17 +24,16 @@ export function Roadmap() {
           subtitle="Everything you need to know about the epic space journey your Mooning Monkeys are about to go on, before they take off."
         />
 
-        <div className="grid gap-10 lg:grid-cols-2">
-          {/* Pre-Launch Progress */}
-          <div>
-            <h3 className="mb-8 font-display text-xl font-bold text-cyan-glow">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch">
+          {/* Pre-Launch — stretches to match post-launch column height */}
+          <div className="flex flex-col">
+            <h3 className="mb-8 shrink-0 font-display text-xl font-medium text-accent">
               Pre-Launch Milestones
             </h3>
-            <div className="relative">
-              {/* Vertical line */}
-              <div className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-cyan-glow/50 via-purple-glow/30 to-transparent" />
+            <div className="relative flex flex-col lg:min-h-0 lg:flex-1">
+              <div className="absolute bottom-0 left-[19px] top-0 hidden w-px bg-white/10 lg:block" />
 
-              <div className="space-y-6">
+              <div className="flex flex-col gap-4 lg:h-full lg:flex-1 lg:justify-between lg:gap-3">
                 {preLaunchRoadmap.map((phase, i) => (
                   <motion.div
                     key={phase.percentage}
@@ -41,47 +41,47 @@ export function Roadmap() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="relative flex gap-5 pl-2"
+                    className="relative flex gap-5 pl-2 lg:min-h-0 lg:flex-1"
                   >
-                    {/* Node */}
-                    <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center">
+                    <div className="relative z-10 flex shrink-0 items-center">
                       <div
                         className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                           phase.status === 'completed'
-                            ? 'border-cyan-glow bg-cyan-glow/10'
+                            ? 'border-accent/50 bg-accent/10'
                             : phase.status === 'active'
-                              ? 'border-purple-glow bg-purple-glow/10'
+                              ? 'border-white/30 bg-white/5'
                               : 'border-white/20 bg-white/5'
                         }`}
                       >
                         {phase.status === 'completed' ? (
-                          <Check size={16} className="text-cyan-glow" />
+                          <Check size={16} className="text-accent" />
                         ) : (
                           <Circle size={12} className={statusColors[phase.status]} fill="currentColor" />
                         )}
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="glass flex-1 rounded-xl p-4">
-                      <div className="flex items-center justify-between">
-                        <span className="font-sansation text-sm font-bold text-cyan-glow">
+                    <div className="panel flex flex-1 flex-col justify-center p-4">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-body text-sm font-bold text-accent">
                           {phase.percentage}%
                         </span>
                         <span
-                          className={`rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wider ${
+                          className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] capitalize ${
                             phase.status === 'completed'
-                              ? 'bg-cyan-glow/10 text-cyan-glow'
+                              ? 'bg-accent/10 text-accent'
                               : phase.status === 'active'
-                                ? 'bg-purple-glow/10 text-purple-glow'
+                                ? 'bg-white/10 text-white/70'
                                 : 'bg-white/5 text-white/40'
                           }`}
                         >
                           {phase.status}
                         </span>
                       </div>
-                      <h4 className="mt-1 font-display font-semibold">{phase.title}</h4>
-                      <p className="mt-1 text-sm text-white/50">{phase.description}</p>
+                      <h4 className="mt-1 font-display font-medium">{phase.title}</h4>
+                      <p className="mt-1 text-sm leading-relaxed text-white/50">
+                        {phase.description}
+                      </p>
                     </div>
                   </motion.div>
                 ))}
@@ -89,12 +89,12 @@ export function Roadmap() {
             </div>
           </div>
 
-          {/* Post-Launch Timeline */}
-          <div>
-            <h3 className="mb-8 font-display text-xl font-bold text-purple-glow">
+          {/* Post-Launch Timeline — defines column height */}
+          <div className="flex flex-col">
+            <h3 className="mb-8 shrink-0 font-display text-xl font-medium text-white/80">
               Post-Launch Timeline
             </h3>
-            <div className="space-y-6">
+            <div className="flex flex-col gap-6 lg:h-full lg:flex-1">
               {postLaunchTimeline.map((item, i) => (
                 <motion.div
                   key={item.quarter}
@@ -102,27 +102,27 @@ export function Roadmap() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="glass overflow-hidden rounded-2xl"
+                  className="panel flex flex-col overflow-hidden p-0 lg:flex-1"
                 >
                   {assets.roadmap[i] && (
                     <div className="relative h-32 overflow-hidden">
-                      <img
+                      <LazyImage
                         src={assets.roadmap[i]}
                         alt={item.title}
                         className="h-full w-full object-cover opacity-60"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-void to-transparent" />
-                      <span className="absolute bottom-3 left-4 font-sansation text-xs text-cyan-glow">
+                      <span className="absolute bottom-3 left-4 font-body text-xs text-accent">
                         {item.quarter}
                       </span>
                     </div>
                   )}
-                  <div className="p-5">
-                    <h4 className="font-display text-lg font-semibold">{item.title}</h4>
-                    <ul className="mt-3 space-y-2">
+                  <div className="flex flex-1 flex-col p-5">
+                    <h4 className="font-display text-lg font-medium">{item.title}</h4>
+                    <ul className="mt-3 flex flex-1 flex-col justify-center space-y-2">
                       {item.items.map((entry) => (
                         <li key={entry} className="flex items-start gap-2 text-sm text-white/50">
-                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-purple-glow" />
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/30" />
                           {entry}
                         </li>
                       ))}

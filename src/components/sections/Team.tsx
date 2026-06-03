@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { assets } from '../../data/assets';
 import { teamMembers } from '../../data/content';
 import { AnimatedSection } from '../ui/AnimatedSection';
+import { LazyImage } from '../ui/LazyImage';
 import { GlassCard } from '../ui/GlassCard';
 import { SectionHeading } from '../ui/SectionHeading';
 
@@ -33,7 +34,7 @@ export function Team() {
             >
               <GlassCard className="h-full overflow-hidden !p-0">
                 <div className="relative aspect-square overflow-hidden">
-                  <img
+                  <LazyImage
                     src={assets.team[i]}
                     alt={member.role}
                     className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
@@ -41,7 +42,7 @@ export function Team() {
                   <div className="absolute inset-0 bg-gradient-to-t from-void via-void/20 to-transparent" />
                 </div>
                 <div className="p-4">
-                  <p className="font-sansation text-[10px] uppercase tracking-widest text-cyan-glow">
+                  <p className="font-body text-[10px] uppercase tracking-widest text-accent">
                     {member.role}
                   </p>
                   <h4 className="mt-1 font-display font-semibold text-white">{member.title}</h4>

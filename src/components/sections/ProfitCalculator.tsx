@@ -85,7 +85,7 @@ export function ProfitCalculator() {
                 </div>
                 <div className="mt-6 flex justify-between border-t border-white/[0.06] pt-4">
                   <span className="text-sm text-white/40">Potential payout</span>
-                  <span className="font-display text-xl font-semibold text-cyan-glow">
+                  <span className="font-display text-xl font-semibold text-accent">
                     {crashed ? '0.00' : profit} SOL
                   </span>
                 </div>

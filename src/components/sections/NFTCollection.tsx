@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { assets } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
+import { LazyImage } from '../ui/LazyImage';
 import { SectionHeading } from '../ui/SectionHeading';
 import { TiltCard } from '../ui/TiltCard';
 import { useParallax } from '../ui/useParallax';
@@ -90,13 +91,13 @@ export function NFTCollection() {
                   >
                     <TiltCard intensity={14} className="h-full">
                     <div className="group relative aspect-square overflow-hidden rounded-2xl glass glow-border">
-                    <img
+                    <LazyImage
                       src={img}
                       alt={`Mooning Monkey NFT ${current + i + 1}`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-void/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                    <div className="absolute bottom-3 left-3 text-xs font-semibold text-cyan-glow opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="absolute bottom-3 left-3 text-xs font-semibold text-accent opacity-0 transition-opacity group-hover:opacity-100">
                       #{String(current + i + 1).padStart(4, '0')}
                     </div>
                     </div>
@@ -149,7 +150,7 @@ export function NFTCollection() {
               whileHover={{ scale: 1.08 }}
               className="aspect-square overflow-hidden rounded-xl glass"
             >
-              <img src={img} alt={`Trait preview ${i + 1}`} className="h-full w-full object-cover" />
+              <LazyImage src={img} alt={`Trait preview ${i + 1}`} className="h-full w-full object-cover" />
             </motion.div>
           ))}
         </div>

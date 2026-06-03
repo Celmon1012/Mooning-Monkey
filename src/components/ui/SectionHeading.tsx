@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { type ReactNode } from 'react';
 
 interface SectionHeadingProps {
   label?: string;
@@ -7,7 +6,6 @@ interface SectionHeadingProps {
   subtitle?: string;
   align?: 'left' | 'center';
   className?: string;
-  children?: ReactNode;
 }
 
 export function SectionHeading({
@@ -17,36 +15,36 @@ export function SectionHeading({
   align = 'center',
   className = '',
 }: SectionHeadingProps) {
-  const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left';
+  const alignClass = align === 'center' ? 'text-center mx-auto items-center' : 'text-left items-start';
 
   return (
-    <div className={`mb-8 max-w-2xl lg:mb-10 ${alignClass} ${className}`}>
+    <div className={`mb-8 flex max-w-3xl flex-col lg:mb-10 ${alignClass} ${className}`}>
       {label && (
-        <motion.span
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-glow/90"
+          className="mb-3 font-body text-xs font-medium uppercase tracking-[0.2em] text-white/45"
         >
           {label}
-        </motion.span>
+        </motion.p>
       )}
       <motion.h2
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.05 }}
-        className="font-display text-2xl font-medium leading-tight text-white sm:text-3xl lg:text-4xl"
+        transition={{ duration: 0.4 }}
+        className="font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.02em] text-white sm:text-4xl lg:text-[2.5rem]"
       >
         <span className="text-balance">{title}</span>
       </motion.h2>
       {subtitle && (
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="mt-3 text-sm leading-relaxed text-white/55 sm:text-base"
+          transition={{ delay: 0.05, duration: 0.4 }}
+          className="mt-4 max-w-2xl text-[15px] leading-[1.65] text-white/60 sm:text-base"
         >
           {subtitle}
         </motion.p>

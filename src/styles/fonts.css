@@ -1,16 +1,11 @@
-/* Original Mooning Monkey fonts from https://moon-monkey.netlify.app/ */
+/* Body & UI — Inter (NFTfi-style clean sans) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&display=swap');
+
+/* Brand display — original Mooning Monkey */
 @font-face {
   font-family: 'Nurom';
   src: url('/fonts/Nurom-Bold.ttf') format('truetype');
   font-weight: 500 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sansation';
-  src: url('/fonts/Sansation-Regular.ttf') format('truetype');
-  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }

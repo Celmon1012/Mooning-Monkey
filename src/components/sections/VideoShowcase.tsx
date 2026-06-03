@@ -5,8 +5,7 @@ import { assets, links } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
 import { Reveal3D } from '../ui/Reveal3D';
 import { SectionHeading } from '../ui/SectionHeading';
-import { TiltCard } from '../ui/TiltCard';
-import { VideoBackground } from '../ui/VideoBackground';
+import { PosterBackground } from '../ui/PosterBackground';
 
 export function VideoShowcase() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -25,14 +24,11 @@ export function VideoShowcase() {
 
   return (
     <AnimatedSection id="video" mesh="mixed" className="section-padding overflow-hidden">
-      <VideoBackground
-        src={assets.video}
-        poster={assets.heroBg}
-        opacity={0.22}
-        parallax
+      <PosterBackground
+        src={assets.heroBg}
+        opacity={0.2}
         overlayClassName="bg-gradient-to-b from-void/92 via-void/85 to-void"
       />
-      <div className="absolute inset-0 bg-hero-glow" />
 
       <div className="relative z-10 mx-auto max-w-5xl">
         <SectionHeading
@@ -42,11 +38,7 @@ export function VideoShowcase() {
         />
 
         <Reveal3D className="relative">
-          <TiltCard intensity={6}>
-          {/* Glow frame */}
-          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-cyan-glow/40 via-purple-glow/40 to-magenta-glow/40 blur-sm animate-glow-pulse" />
-
-          <div className="relative overflow-hidden rounded-3xl glass-strong glow-border">
+          <div className="panel overflow-hidden p-0">
             <div className="relative aspect-video bg-void">
               <video
                 ref={videoRef}
@@ -54,6 +46,7 @@ export function VideoShowcase() {
                 className="h-full w-full object-cover"
                 loop
                 playsInline
+                preload="none"
                 poster={assets.heroBg}
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
@@ -72,7 +65,7 @@ export function VideoShowcase() {
                   <motion.div
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-cyan-glow to-purple-glow shadow-glow-lg"
+                    className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lift"
                   >
                     <Play size={32} className="ml-1 text-void" fill="currentColor" />
                   </motion.div>
@@ -90,13 +83,12 @@ export function VideoShowcase() {
                 href={links.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-cyan-glow transition-colors hover:text-white"
+                className="text-sm text-accent transition-colors hover:text-white"
               >
                 Watch on YouTube →
               </a>
             </div>
           </div>
-          </TiltCard>
         </Reveal3D>
       </div>
     </AnimatedSection>

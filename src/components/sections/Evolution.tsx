@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { assets } from '../../data/assets';
 import { evolutionStages } from '../../data/content';
 import { AnimatedSection } from '../ui/AnimatedSection';
+import { LazyImage } from '../ui/LazyImage';
 import { Button } from '../ui/Button';
 import { Reveal3D } from '../ui/Reveal3D';
 import { SectionHeading } from '../ui/SectionHeading';
@@ -56,18 +57,17 @@ export function Evolution() {
 
                 <TiltCard intensity={10}>
                 <div
-                  className="glass glow-border overflow-hidden rounded-2xl transition-shadow duration-300 group-hover:shadow-glow"
+                  className="glass glow-border overflow-hidden rounded-2xl transition-shadow duration-300 group-hover:shadow-lift"
                   style={{
                     boxShadow: `0 0 32px ${stage.glowColor}`,
                   }}
                 >
                   {/* Image */}
                   <div className={`relative overflow-hidden bg-gradient-to-b ${stage.color} p-6`}>
-                    <img
+                    <LazyImage
                       src={stageImages[i]}
                       alt={stage.name}
-                      className="mx-auto h-48 w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-110 sm:h-56 animate-float-3d"
-                      style={{ animationDelay: `${i * 0.4}s` }}
+                      className="mx-auto h-48 w-full object-contain transition-transform duration-500 group-hover:scale-105 sm:h-56"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-void/80 to-transparent" />
                   </div>
@@ -75,15 +75,15 @@ export function Evolution() {
                   {/* Content */}
                   <div className="p-5">
                     <div className="flex items-center justify-between">
-                      <span className="font-sansation text-[10px] uppercase tracking-widest text-white/40">
+                      <span className="font-body text-[10px] uppercase tracking-widest text-white/40">
                         Stage {i + 1}
                       </span>
-                      <span className="rounded-full bg-cyan-glow/10 px-2 py-0.5 font-sansation text-xs text-cyan-glow">
+                      <span className="rounded-full bg-cyan-glow/10 px-2 py-0.5 font-body text-xs text-accent">
                         {stage.population}
                       </span>
                     </div>
                     <h3 className="mt-2 font-display text-xl font-bold">{stage.name}</h3>
-                    <p className="text-xs text-purple-glow/80">{stage.subtitle}</p>
+                    <p className="text-xs text-white/70/80">{stage.subtitle}</p>
                     <p className="mt-3 text-sm leading-relaxed text-white/50">
                       {stage.description}
                     </p>
@@ -94,7 +94,7 @@ export function Evolution() {
                 {/* Arrow connector - mobile/tablet */}
                 {i < evolutionStages.length - 1 && (
                   <div className="flex justify-center py-2 lg:hidden">
-                    <ArrowRight className="rotate-90 text-cyan-glow/40" size={20} />
+                    <ArrowRight className="rotate-90 text-accent/40" size={20} />
                   </div>
                 )}
               </Reveal3D>

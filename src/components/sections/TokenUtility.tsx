@@ -6,21 +6,15 @@ import { Button } from '../ui/Button';
 import { GlassCard } from '../ui/GlassCard';
 import { Reveal3D } from '../ui/Reveal3D';
 import { SectionHeading } from '../ui/SectionHeading';
-import { VideoBackground } from '../ui/VideoBackground';
+import { PosterBackground } from '../ui/PosterBackground';
 
 export function TokenUtility() {
   return (
     <AnimatedSection id="token" mesh="cyan" className="section-padding overflow-hidden">
-      <VideoBackground
-        src={assets.video}
-        poster={assets.tokenBack}
-        opacity={0.1}
-        parallax
+      <PosterBackground
+        src={assets.tokenBack}
+        opacity={0.12}
         overlayClassName="bg-gradient-to-r from-void/95 via-void/88 to-void/95"
-      />
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay"
-        style={{ backgroundImage: `url(${assets.tokenBack})` }}
       />
 
       <div className="relative mx-auto max-w-7xl">
@@ -36,11 +30,11 @@ export function TokenUtility() {
             <GlassCard glow className="relative overflow-hidden">
               <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-purple-glow/20 blur-3xl" />
               <div className="relative">
-                <span className="font-sansation text-xs uppercase tracking-widest text-cyan-glow">
+                <span className="font-body text-xs uppercase tracking-widest text-accent">
                   Takion Token
                 </span>
                 <h3 className="mt-2 font-display text-4xl font-bold">
-                  <span className="gradient-text">$TAK</span>
+                  <span className="accent-word">$TAK</span>
                 </h3>
                 <p className="mt-4 text-white/60 leading-relaxed">
                   By simply holding any of the evolution NFTs, you'll receive daily Takion Tokens
@@ -60,7 +54,7 @@ export function TokenUtility() {
                       key={item.label}
                       className="rounded-xl border border-white/10 bg-white/[0.03] p-4"
                     >
-                      <div className="font-display text-lg font-bold text-cyan-glow">
+                      <div className="font-display text-lg font-bold text-accent">
                         {item.value}
                       </div>
                       <div className="text-xs text-white/40">{item.label}</div>
@@ -101,7 +95,7 @@ export function TokenUtility() {
               <Reveal3D key={feature.title} delay={i * 0.08}>
                 <GlassCard className="h-full">
                   <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow/20 to-purple-glow/20">
-                    <feature.icon className="h-5 w-5 text-cyan-glow" />
+                    <feature.icon className="h-5 w-5 text-accent" />
                   </div>
                   <h4 className="font-display font-semibold">{feature.title}</h4>
                   <p className="mt-2 text-sm leading-relaxed text-white/50">
@@ -124,7 +118,7 @@ export function TokenUtility() {
           />
           <div className="flex-1 text-center sm:text-left">
             <h3 className="font-display text-2xl font-bold sm:text-3xl">
-              <span className="gradient-text-alt">Lucky Mystery Box</span>
+              <span className="accent-word-alt">Lucky Mystery Box</span>
             </h3>
             <p className="mt-3 text-white/60">
               Insane surprises will be announced along with the pre and post roadmap launch.

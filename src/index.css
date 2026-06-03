@@ -10,11 +10,11 @@
   }
 
   [id] {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: 4.5rem;
   }
 
   body {
-    @apply bg-void font-body text-base font-normal text-white antialiased;
+    @apply bg-void font-body text-[15px] font-normal leading-relaxed text-white/80 antialiased;
     overflow-x: hidden;
   }
 
@@ -24,21 +24,83 @@
   h4,
   h5,
   h6 {
-    font-family: Nurom, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
     font-weight: 500;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.02em;
+    color: rgb(255 255 255 / 0.95);
   }
 
-  .font-display,
-  .font-nurom {
-    font-family: Nurom, sans-serif;
+  p {
+    @apply text-white/70 leading-relaxed;
+  }
+
+  .font-display {
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  .font-brand {
+    font-family: Nurom, Inter, sans-serif;
     font-weight: 500;
   }
 
-  .font-body,
-  .font-sansation {
-    font-family: Sansation, sans-serif;
-    font-weight: 400;
+  .font-body {
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  /* Lumia.org header link style */
+  .nav-link-lumia {
+    @apply font-nav text-[13px] font-normal uppercase tracking-[2px] text-white/65 transition-colors duration-200;
+  }
+
+  .nav-link-lumia:hover {
+    @apply text-white;
+  }
+
+  /* Lumia.org — label fades, icon rises into place on hover */
+  .nav-link-lumia-swap {
+    @apply relative inline-flex h-9 min-w-[4.5rem] items-center justify-center overflow-hidden px-3;
+  }
+
+  .nav-link-lumia-swap .nav-link-label {
+    @apply font-nav text-[13px] font-normal uppercase tracking-[2px] text-white/65 transition-all duration-300 ease-out;
+  }
+
+  .nav-link-lumia-swap:hover .nav-link-label,
+  .group:hover .nav-link-lumia-swap .nav-link-label {
+    @apply translate-y-[-6px] opacity-0;
+  }
+
+  .nav-link-lumia-swap .nav-link-icon-wrap {
+    @apply pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 ease-out;
+    transform: translateY(10px);
+  }
+
+  .nav-link-lumia-swap:hover .nav-link-icon-wrap,
+  .group:hover .nav-link-lumia-swap .nav-link-icon-wrap {
+    @apply opacity-100;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown-item {
+    @apply relative flex h-10 items-center justify-center overflow-hidden px-4 transition-colors hover:bg-white/[0.04];
+  }
+
+  .nav-dropdown-item .nav-link-label {
+    @apply font-nav text-[12px] font-normal uppercase tracking-[2px] text-white/60 transition-all duration-300;
+  }
+
+  .nav-dropdown-item:hover .nav-link-label {
+    @apply translate-y-[-5px] opacity-0;
+  }
+
+  .nav-dropdown-item .nav-link-icon-wrap {
+    @apply pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300;
+    transform: translateY(8px);
+  }
+
+  .nav-dropdown-item:hover .nav-link-icon-wrap {
+    @apply opacity-100;
+    transform: translateY(0);
   }
 
   @keyframes float-3d {

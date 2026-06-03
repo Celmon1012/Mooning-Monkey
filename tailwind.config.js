@@ -20,10 +20,14 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Nurom', 'sans-serif'],
-        body: ['Sansation', 'sans-serif'],
-        sansation: ['Sansation', 'sans-serif'],
-        nurom: ['Nurom', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        body: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        brand: ['Nurom', 'Inter', 'sans-serif'],
+        nav: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+      letterSpacing: {
+        nav: '0.15em',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

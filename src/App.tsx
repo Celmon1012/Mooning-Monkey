@@ -1,45 +1,61 @@
+import { lazy, Suspense } from 'react';
 import { Footer } from './components/layout/Footer';
 import { Navbar } from './components/layout/Navbar';
-import { About } from './components/sections/About';
-import { BuyMint } from './components/sections/BuyMint';
-import { ComicSection } from './components/sections/ComicSection';
-import { Community } from './components/sections/Community';
-import { Evolution } from './components/sections/Evolution';
 import { Hero } from './components/sections/Hero';
-import { NFTCollection } from './components/sections/NFTCollection';
-import { ProfitCalculator } from './components/sections/ProfitCalculator';
-import { Roadmap } from './components/sections/Roadmap';
-import { Team } from './components/sections/Team';
-import { TokenUtility } from './components/sections/TokenUtility';
-import { VideoShowcase } from './components/sections/VideoShowcase';
+
+const About = lazy(() => import('./components/sections/About').then((m) => ({ default: m.About })));
+const Evolution = lazy(() =>
+  import('./components/sections/Evolution').then((m) => ({ default: m.Evolution })),
+);
+const NFTCollection = lazy(() =>
+  import('./components/sections/NFTCollection').then((m) => ({ default: m.NFTCollection })),
+);
+const ComicSection = lazy(() =>
+  import('./components/sections/ComicSection').then((m) => ({ default: m.ComicSection })),
+);
+const TokenUtility = lazy(() =>
+  import('./components/sections/TokenUtility').then((m) => ({ default: m.TokenUtility })),
+);
+const ProfitCalculator = lazy(() =>
+  import('./components/sections/ProfitCalculator').then((m) => ({ default: m.ProfitCalculator })),
+);
+const Roadmap = lazy(() =>
+  import('./components/sections/Roadmap').then((m) => ({ default: m.Roadmap })),
+);
+const VideoShowcase = lazy(() =>
+  import('./components/sections/VideoShowcase').then((m) => ({ default: m.VideoShowcase })),
+);
+const Team = lazy(() => import('./components/sections/Team').then((m) => ({ default: m.Team })));
+const Community = lazy(() =>
+  import('./components/sections/Community').then((m) => ({ default: m.Community })),
+);
+const BuyMint = lazy(() =>
+  import('./components/sections/BuyMint').then((m) => ({ default: m.BuyMint })),
+);
+
+function SectionFallback() {
+  return <div className="min-h-[40vh]" aria-hidden />;
+}
+
 function App() {
   return (
     <div className="relative min-h-screen bg-void">
       <Navbar />
-      <main className="pt-16 sm:pt-[4.5rem]">
+      <main className="pt-14">
         <Hero />
-        <div className="section-divider" aria-hidden />
-        <About />
-        <div className="section-divider" aria-hidden />
-        <Evolution />
-        <div className="section-divider" aria-hidden />
-        <NFTCollection />
-        <div className="section-divider" aria-hidden />
-        <ComicSection />
-        <div className="section-divider" aria-hidden />
-        <TokenUtility />
-        <div className="section-divider" aria-hidden />
-        <ProfitCalculator />
-        <div className="section-divider" aria-hidden />
-        <Roadmap />
-        <div className="section-divider" aria-hidden />
-        <VideoShowcase />
-        <div className="section-divider" aria-hidden />
-        <Team />
-        <div className="section-divider" aria-hidden />
-        <Community />
-        <div className="section-divider" aria-hidden />
-        <BuyMint />
+        <Suspense fallback={<SectionFallback />}>
+          <About />
+          <Evolution />
+          <NFTCollection />
+          <ComicSection />
+          <TokenUtility />
+          <ProfitCalculator />
+          <Roadmap />
+          <VideoShowcase />
+          <Team />
+          <Community />
+          <BuyMint />
+        </Suspense>
       </main>
       <Footer />
     </div>
