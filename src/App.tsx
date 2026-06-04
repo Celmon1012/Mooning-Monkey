@@ -1,64 +1,51 @@
-import { lazy, Suspense } from 'react';
+import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { Footer } from './components/layout/Footer';
 import { Navbar } from './components/layout/Navbar';
-import { Hero } from './components/sections/Hero';
+import { WhitelistRail } from './components/layout/WhitelistRail';
+import { EvolutionLabPage } from './pages/EvolutionLabPage';
+import { HomePage } from './pages/HomePage';
 
-const About = lazy(() => import('./components/sections/About').then((m) => ({ default: m.About })));
-const Evolution = lazy(() =>
-  import('./components/sections/Evolution').then((m) => ({ default: m.Evolution })),
-);
-const NFTCollection = lazy(() =>
-  import('./components/sections/NFTCollection').then((m) => ({ default: m.NFTCollection })),
-);
-const ComicSection = lazy(() =>
-  import('./components/sections/ComicSection').then((m) => ({ default: m.ComicSection })),
-);
-const TokenUtility = lazy(() =>
-  import('./components/sections/TokenUtility').then((m) => ({ default: m.TokenUtility })),
-);
-const ProfitCalculator = lazy(() =>
-  import('./components/sections/ProfitCalculator').then((m) => ({ default: m.ProfitCalculator })),
-);
-const Roadmap = lazy(() =>
-  import('./components/sections/Roadmap').then((m) => ({ default: m.Roadmap })),
-);
-const VideoShowcase = lazy(() =>
-  import('./components/sections/VideoShowcase').then((m) => ({ default: m.VideoShowcase })),
-);
-const Team = lazy(() => import('./components/sections/Team').then((m) => ({ default: m.Team })));
-const Community = lazy(() =>
-  import('./components/sections/Community').then((m) => ({ default: m.Community })),
-);
-const BuyMint = lazy(() =>
-  import('./components/sections/BuyMint').then((m) => ({ default: m.BuyMint })),
-);
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
 
-function SectionFallback() {
-  return <div className="min-h-[40vh]" aria-hidden />;
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+
+  return null;
+}
+
+function AppLayout() {
+  return (
+    <div className="relative min-h-screen bg-void">
+      <Navbar />
+      <WhitelistRail />
+      <ScrollToTop />
+      <main className="pt-14">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Evaluation" element={<EvolutionLabPage />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
 function App() {
   return (
-    <div className="relative min-h-screen bg-void">
-      <Navbar />
-      <main className="pt-14">
-        <Hero />
-        <Suspense fallback={<SectionFallback />}>
-          <About />
-          <Evolution />
-          <NFTCollection />
-          <ComicSection />
-          <TokenUtility />
-          <ProfitCalculator />
-          <Roadmap />
-          <VideoShowcase />
-          <Team />
-          <Community />
-          <BuyMint />
-        </Suspense>
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <AppLayout />
+    </BrowserRouter>
   );
 }
 

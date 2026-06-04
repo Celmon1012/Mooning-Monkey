@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { assets } from '../../data/assets';
-import { membershipBenefits } from '../../data/content';
 import { AnimatedSection } from '../ui/AnimatedSection';
 import { LazyImage } from '../ui/LazyImage';
 import { GlassCard } from '../ui/GlassCard';
@@ -132,39 +131,6 @@ export function About() {
               ))}
             </div>
           </motion.div>
-        </div>
-
-        {/* Membership Benefits Grid */}
-        <div id="membership">
-          <SectionHeading
-            label="Membership"
-            title="Exclusive Holder Privileges"
-            subtitle="On top of co-sharing astronomical profits from the game, here's what awaits Mooning Monkey NFT holders."
-          />
-          <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {membershipBenefits.map((benefit, i) => (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex h-full"
-              >
-                <GlassCard
-                  tilt={false}
-                  hover
-                  className="flex h-full w-full flex-col !p-5 lg:!p-6"
-                >
-                  <benefit.icon className="mb-4 h-8 w-8 shrink-0 text-accent" />
-                  <h4 className="font-display shrink-0 text-lg font-semibold">{benefit.title}</h4>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-white/50">
-                    {benefit.description}
-                  </p>
-                </GlassCard>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </div>
     </AnimatedSection>

@@ -2,11 +2,12 @@ import { assets, links } from '../../data/assets';
 import { navLinks } from '../../data/content';
 
 const footerLinks = [
-  { label: 'Buy Now', href: '#buy' },
-  { label: 'Token', href: '#token' },
-  { label: 'Membership', href: '#membership' },
-  { label: 'Comic', href: '#comic' },
-  { label: 'Calculator', href: '#calculator' },
+  { label: 'Buy Now', href: '/#buy' },
+  { label: 'Token', href: '/#token' },
+  { label: 'Membership', href: '/#membership' },
+  { label: 'Comic', href: '/#comic' },
+  { label: 'Calculator', href: '/#calculator' },
+  { label: 'Evolution Lab', href: '/Evaluation' },
   { label: 'Whitelist', href: links.whitelist },
   { label: 'One Pager', href: links.docs },
 ];

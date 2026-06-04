@@ -1,0 +1,959 @@
+/* Evaluation page — ported from moon-monkey.netlify.app/Evaluation */
+
+@font-face {
+  font-family: 'Sansation';
+  src: url('https://moon-monkey.netlify.app/static/media/Sansation_Regular.048308e3.ttf')
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.evaluation-page {
+  font-family: 'Sansation', Inter, system-ui, sans-serif;
+  color: #fff;
+  width: 100%;
+  min-height: 100vh;
+  background-image: var(--eval-page-bg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.evaluation-page .eval-gradient-text {
+  background: linear-gradient(63deg, #5dc7fe 5%, #f831ec 66%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.evaluation-page .gal {
+  color: #f531ec;
+}
+
+/* —— Hero —— */
+.evaluation-page .Evaluation_section1 {
+  padding: 2% 0;
+}
+
+.evaluation-page .Evaluation_Innersection1 {
+  padding-top: 10rem;
+  margin: auto;
+  max-width: 78%;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .evaluation-page .Evaluation_Innersection1 {
+    max-width: 95%;
+    padding-top: 8rem;
+  }
+}
+
+.evaluation-page .section1_h1 {
+  text-transform: uppercase;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  text-align: center;
+  font-family: 'Nurom', sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.evaluation-page .section1_h3,
+.evaluation-page .section1_h33 {
+  font-family: 'Sansation', sans-serif;
+  text-align: center;
+  color: #fff !important;
+  font-size: clamp(1.125rem, 2.5vw, 1.875rem);
+  line-height: 1.35;
+  width: 87%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.evaluation-page .section1_h3 {
+  padding-bottom: 1em;
+  margin-top: 1.5rem;
+}
+
+.evaluation-page .section1_h33 {
+  padding-bottom: 0;
+  margin: auto auto 2.75%;
+}
+
+.evaluation-page .section1_h4 {
+  padding-bottom: 0;
+  font-family: 'Sansation', sans-serif;
+  color: #fff !important;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.35;
+  width: 76%;
+  text-align: center;
+  margin: 30px auto auto;
+}
+
+/* —— Stage cards row —— */
+.evaluation-page .card_main_section2 {
+  font-size: 20px;
+  padding: 2% 0 4.9rem;
+}
+
+.evaluation-page .cards_twos {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.evaluation-page .card_one_section2 {
+  width: auto;
+  max-width: 100%;
+  text-align: center;
+}
+
+.evaluation-page .h4_section2 {
+  margin-bottom: 30px;
+  font-family: 'Sansation', sans-serif;
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.evaluation-page .monkey_section2 {
+  width: min(246px, 42vw);
+  height: auto;
+  aspect-ratio: 246 / 292;
+  object-fit: contain;
+  box-shadow: 0 2px 80px -16px #631de7;
+}
+
+.evaluation-page .h44_section2 {
+  letter-spacing: 1px;
+  text-align: center;
+  font-family: 'Nurom', sans-serif;
+  font-size: 1.35rem;
+  margin: 0.5rem 0 0;
+}
+
+/* —— Evolve section —— */
+.evaluation-page .section3_main {
+  background-image: var(--eval-evolve-bg);
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 2rem;
+}
+
+.evaluation-page .section3_innerDiv {
+  padding: 3rem 0 4rem;
+}
+
+.evaluation-page .evolve_section3Div {
+  margin-bottom: 2.75%;
+  text-align: center;
+}
+
+.evaluation-page .evolve_section3 {
+  font-family: 'Nurom', sans-serif;
+  text-align: center;
+  font-size: clamp(1.75rem, 4vw, 2.625rem);
+  padding-bottom: 10px;
+  margin-bottom: 0;
+}
+
+.evaluation-page .select_section3 {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: #fff;
+  max-width: 65%;
+  text-align: center;
+  margin: 0 auto;
+  line-height: 1.35;
+  font-family: 'Sansation', sans-serif;
+}
+
+.evaluation-page .active_stageButton {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding-bottom: 3.5rem;
+  padding-top: 2rem;
+}
+
+.evaluation-page .active_stage2,
+.evaluation-page .active_stage22 {
+  background: transparent;
+  border: 0;
+  font-size: 22px !important;
+  color: #f831ec !important;
+  padding: 4px 30px;
+  vertical-align: middle;
+  font-family: 'Sansation', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.evaluation-page .active_stage2 {
+  border-bottom: 2px solid #fff;
+}
+
+.evaluation-page .active_stage22.activeBtn,
+.evaluation-page .active_stage2.activeBtn {
+  color: #5dcbf6 !important;
+  background-color: rgba(121, 171, 251, 0.17) !important;
+}
+
+/* —— Evolve box —— */
+.evaluation-page .box_mainDiv {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 18px 0 #6923ea;
+  background-color: transparent;
+  max-width: 88%;
+  margin: auto;
+}
+
+.evaluation-page .box_textDiv {
+  padding: 24px 30px;
+}
+
+.evaluation-page .button_divMa {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.evaluation-page .box_nftText {
+  padding-top: 15px;
+  font-size: clamp(1.5rem, 3vw, 2.375rem);
+  font-family: 'Nurom', sans-serif;
+}
+
+.evaluation-page .both_button {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.evaluation-page .buttons_container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.evaluation-page .buttons_container button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.7rem 1.2rem 0.3rem;
+  background-color: #6923ea;
+  max-width: 250px;
+  font-family: 'Nurom', sans-serif;
+  box-shadow: 1px 2px 160px 11px #631de7;
+  border-radius: 20px;
+  border: none;
+  color: #fff;
+  position: relative;
+  width: 250px;
+  height: 58px;
+  font-size: 18px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.evaluation-page .buttons_container button:hover {
+  transform: translateY(-1px);
+  box-shadow: 1px 4px 180px 14px #631de7;
+}
+
+.evaluation-page .order_text {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: #fff;
+  line-height: 1.35;
+  max-width: 100%;
+  margin-top: 20px;
+  font-family: 'Sansation', sans-serif;
+}
+
+.evaluation-page .note_text {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: #fff;
+  line-height: 1.35;
+  margin-top: 1.25rem;
+  font-family: 'Sansation', sans-serif;
+}
+
+.evaluation-page .evolve_process {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.evaluation-page .strt_evolve {
+  margin-bottom: 50px;
+  font-size: clamp(1.5rem, 3vw, 2.625rem);
+  font-family: 'Nurom', sans-serif;
+}
+
+.evaluation-page .first_round_image,
+.evaluation-page .round_divTwo,
+.evaluation-page .images_divFolder {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.evaluation-page .border_img,
+.evaluation-page .border_img1,
+.evaluation-page .border_img2 {
+  width: min(160px, 28vw);
+  height: auto;
+  max-width: 100%;
+}
+
+.evaluation-page .sidearrow {
+  margin-left: 1rem;
+  width: 30px;
+  height: auto;
+  opacity: 0.9;
+}
+
+.evaluation-page .ib_marLeft {
+  margin-left: 30px;
+  text-align: center;
+}
+
+.evaluation-page .ques_image,
+.evaluation-page .ques_image1,
+.evaluation-page .ques_image3 {
+  width: min(235px, 40vw);
+  height: auto;
+  margin-top: -40px;
+  object-fit: contain;
+}
+
+.evaluation-page .button_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 1rem;
+}
+
+.evaluation-page .button_container button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.7rem 1.2rem 0.3rem;
+  background-color: #6923ea;
+  font-family: 'Nurom', sans-serif;
+  box-shadow: 1px 2px 160px 11px #631de7;
+  border-radius: 20px;
+  border: none;
+  color: #fff;
+  width: 200px;
+  height: 52px;
+  transition: transform 0.2s;
+}
+
+.evaluation-page .button_container button:hover {
+  transform: scale(1.02);
+}
+
+.evaluation-page .new-text-add {
+  text-align: center;
+  margin: 2.5rem auto 0;
+  max-width: 88%;
+  font-family: 'Sansation', sans-serif;
+  font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+}
+
+/* —— Evolution tree —— */
+.evaluation-page .tree_container {
+  width: min(90%, 1100px);
+  margin: 5rem auto 20px;
+  text-align: center;
+  font-family: 'Sansation', sans-serif;
+  box-sizing: border-box;
+  padding: 30px 16px;
+}
+
+.evaluation-page .evolution_heading {
+  font-family: 'Nurom', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.125rem);
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.evaluation-page .Evolution_text {
+  font-family: 'Sansation', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.45;
+  color: #fff;
+  text-align: center;
+  max-width: 90%;
+  margin: 0.5rem auto;
+}
+
+.evaluation-page .quetion_mark_heading,
+.evaluation-page .Get_External_heading {
+  font-size: clamp(1.5rem, 3vw, 2.625rem);
+  font-weight: 500;
+  font-family: 'Nurom', sans-serif;
+  line-height: 1.25;
+  padding-top: 50px;
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+.evaluation-page .Monkey_bottom_border {
+  background-color: #f832ec;
+  height: 4px;
+  width: min(85%, 900px);
+  margin: 28px auto 0;
+}
+
+/* —— 24 monkeys: 6 columns × 4 rows with pink tree connectors —— */
+.evaluation-page .eval-monkeys-columns {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0 0.35rem;
+  max-width: min(1100px, 96vw);
+  margin: 2.5rem auto 0;
+  padding: 0 0.5rem;
+  position: relative;
+}
+
+.evaluation-page .eval-monkey-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.evaluation-page .eval-monkey-slot {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.35rem 0;
+}
+
+.evaluation-page .eval-monkey-slot .main-timeline {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.evaluation-page .eval-monkey-slot .timeline-year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2px;
+}
+
+.evaluation-page .eval-monkeys-columns .monkey_img {
+  width: 100%;
+  max-width: 118px;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  display: block;
+  border-radius: 14px;
+  border: 2px solid #f832ec;
+  box-shadow: 0 0 12px rgba(248, 50, 236, 0.25);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Vertical pink connector between rows in each column */
+.evaluation-page .eval-monkey-connector-v {
+  flex-shrink: 0;
+  width: 3px;
+  height: 32px;
+  background-color: #f832ec;
+  margin: 2px auto 0;
+}
+
+/* Connector from bottom row down to horizontal bar */
+.evaluation-page .eval-monkey-connector-down {
+  flex-shrink: 0;
+  width: 3px;
+  height: 36px;
+  background-color: #f832ec;
+  margin: 4px auto 0;
+}
+
+/* Horizontal pink bar linking all columns (below row 4) */
+.evaluation-page .eval-monkeys-columns-wrap {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.evaluation-page .eval-monkeys-columns-wrap .Monkey_bottom_border {
+  margin-top: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.evaluation-page .quetion_mark_heading--after-bar {
+  padding-top: 28px;
+  margin-top: 24px;
+  margin-bottom: 2rem;
+}
+
+/* —— Galactic / Alien tree (original Evaluation markup + layout) —— */
+.evaluation-page .row.mt-5 {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+/* —— Galactic 6-card tree (3 cols × 2 rows) —— */
+.evaluation-page .galactic-phase {
+  text-align: center;
+  width: 100%;
+}
+
+.evaluation-page .galactic-phase .quetion_mark_heading {
+  padding-top: 50px;
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+.evaluation-page .galactic-tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.evaluation-page .galactic-cards {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 8px;
+}
+
+.evaluation-page .galactic-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.evaluation-page .galactic-stub-up {
+  width: 3px;
+  height: 36px;
+  background-color: #f832ec;
+  flex-shrink: 0;
+}
+
+.evaluation-page .galactic-stub-mid {
+  width: 3px;
+  height: 28px;
+  background-color: #f832ec;
+  flex-shrink: 0;
+}
+
+.evaluation-page .galactic-stub-down {
+  width: 3px;
+  height: 32px;
+  background-color: #f832ec;
+  flex-shrink: 0;
+}
+
+.evaluation-page .galactic-col .eval-q-card--galactic {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+/* Horizontal bar: only between col 1 and col 3 centers (66.67% width) */
+.evaluation-page .galactic-hbar {
+  width: 66.67%;
+  height: 3px;
+  background-color: #f832ec;
+  flex-shrink: 0;
+}
+
+.evaluation-page .galactic-center-stem {
+  width: 3px;
+  height: 40px;
+  background-color: #f832ec;
+  flex-shrink: 0;
+}
+
+/* —— Alien → Eternal Yeti (one centered column) —— */
+.evaluation-page .alien-yeti-phase {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.evaluation-page .alien-yeti-phase .quetion_mark_heading {
+  padding-top: 50px;
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+.evaluation-page .alien-tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 340px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.evaluation-page .alien-cards {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.evaluation-page .alien-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.evaluation-page .alien-stub-up {
+  width: 3px;
+  height: 42px;
+  background-color: #f832ec;
+}
+
+.evaluation-page .alien-col .eval-q-card--alien {
+  margin: 0;
+}
+
+.evaluation-page .alien-stub-down {
+  width: 3px;
+  height: 34px;
+  background-color: #f832ec;
+}
+
+/* Horizontal bar joining the two down-stubs (spans column centers 25%→75%) */
+.evaluation-page .alien-hbar {
+  width: 50%;
+  height: 3px;
+  background-color: #f832ec;
+  margin: 0 auto;
+}
+
+/* Center line from bar down to the yeti card */
+.evaluation-page .alien-center-stem {
+  width: 3px;
+  height: 44px;
+  background-color: #f832ec;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+.evaluation-page .alien-tree > .eval-q-card--yeti {
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+.evaluation-page .alien-yeti-phase .Get_External_heading {
+  padding-top: 28px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* ? placeholder cards (purple = galactic, pink = alien) */
+.evaluation-page .eval-q-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 18px;
+  font-family: 'Nurom', 'Sansation', sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  color: #0a0a0a;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.evaluation-page .eval-q-card--galactic {
+  background-color: #7e2ff5;
+}
+
+.evaluation-page .eval-q-card--alien {
+  background-color: #f231ec;
+}
+
+.evaluation-page .eval-q-card--yeti {
+  width: 150px;
+  height: 150px;
+  border-radius: 22px;
+  font-size: 72px;
+  background: linear-gradient(135deg, #7e2ff5 0%, #5dc7fe 60%, #00e5ff 100%);
+}
+
+@media (max-width: 768px) {
+  .evaluation-page .eval-q-card {
+    width: 72px;
+    height: 72px;
+    font-size: 34px;
+    border-radius: 14px;
+  }
+
+  .evaluation-page .eval-q-card--yeti {
+    width: 120px;
+    height: 120px;
+    font-size: 58px;
+  }
+
+  .evaluation-page .galactic-stub-up {
+    height: 28px;
+  }
+
+  .evaluation-page .galactic-stub-mid {
+    height: 22px;
+  }
+
+  .evaluation-page .galactic-stub-down {
+    height: 26px;
+  }
+
+  .evaluation-page .galactic-center-stem {
+    height: 32px;
+  }
+}
+
+/* —— Eternal Yeti —— */
+.evaluation-page .eval-yeti-phase {
+  max-width: 320px;
+  padding-bottom: 3rem;
+}
+
+.evaluation-page .eval-yeti-connector-up {
+  width: 3px;
+  height: 56px;
+  background-color: #f832ec;
+  margin: 0 auto;
+}
+
+.evaluation-page .eval-yeti-visual {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.evaluation-page .Get_External_heading {
+  font-size: clamp(1.5rem, 3vw, 2.625rem);
+  font-weight: 500;
+  font-family: 'Nurom', sans-serif;
+  line-height: 1.25;
+  padding-top: 24px;
+  margin: 0;
+}
+
+.evaluation-page .eval-tree-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  max-width: 100%;
+}
+
+.evaluation-page .main-timeline {
+  font-family: 'Nurom', sans-serif;
+  padding: 10px 0;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.evaluation-page .timeline-content {
+  margin: 0;
+  padding: 0;
+}
+
+.evaluation-page .eval-monkey-slot .timeline-year,
+.evaluation-page .eval-tree-row .timeline-year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.evaluation-page .eval-tree-row .monkey_img {
+  max-width: min(80px, 14vw);
+  height: auto;
+  padding: 4px;
+  object-fit: contain;
+}
+
+.evaluation-page .eval-tree-row--gorillas .monkey_img {
+  max-width: min(120px, 18vw);
+  border: 2px solid #f832ec;
+  border-radius: 14px;
+}
+
+.evaluation-page .eval-tree-row--yeti {
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.evaluation-page .eval-tree-row--yeti .monkey_img {
+  max-width: min(200px, 35vw);
+  border: 2px solid #f832ec;
+  border-radius: 14px;
+}
+
+@media (max-width: 900px) {
+  .evaluation-page .eval-monkeys-columns {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .evaluation-page .eval-monkeys-columns .monkey_img {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 520px) {
+  .evaluation-page .eval-monkeys-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* —— Earning table —— */
+.evaluation-page .pd__reward {
+  padding: 110px 16px 50px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .evaluation-page .pd__reward {
+    padding: 60px 16px 30px;
+  }
+}
+
+.evaluation-page .eval-earn-title {
+  font-family: 'Nurom', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  margin-bottom: 1rem;
+}
+
+.evaluation-page .table_text {
+  font-family: 'Sansation', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.45;
+  color: #fff;
+  max-width: 90%;
+  margin: 0 auto 1rem;
+}
+
+.evaluation-page .result-table-sec {
+  max-width: 95%;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+.evaluation-page .result-table {
+  width: 100%;
+  min-width: 500px;
+  border: 1.5px solid #512a9f;
+  border-collapse: collapse;
+  margin: 20px auto 50px;
+  box-shadow: 0 2px 18px 0 #6923ea;
+  font-family: 'Sansation', sans-serif;
+}
+
+.evaluation-page .result-table thead tr {
+  background: transparent;
+}
+
+.evaluation-page .result-table th {
+  padding: 14px 12px;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border: 1px solid #512a9f;
+}
+
+.evaluation-page .result-table td {
+  padding: 14px 12px;
+  color: #fff;
+  border: 1px solid #512a9f;
+  font-size: 0.95rem;
+}
+
+.evaluation-page .result-table tbody tr:nth-child(odd) {
+  background: #1c1c1e;
+}
+
+.evaluation-page .result-table tbody tr:nth-child(even) {
+  background: transparent;
+}
+
+.evaluation-page .result-table .remarks-width {
+  min-width: 180px;
+}
+
+.evaluation-page .result-table .rewards-cell {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #5dcbf6;
+  vertical-align: middle;
+}
+
+.evaluation-page .btn_box {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0 4rem;
+}
+
+.evaluation-page .btn_box button,
+.evaluation-page .btn_box a.eval-calc-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-family: 'Nurom', sans-serif;
+  font-size: clamp(1.125rem, 2.5vw, 2rem);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.7rem 2rem 0.5rem;
+  background-image: linear-gradient(180deg, #fa4cf0, #5d15e3);
+  border-radius: 15px;
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 1px 2px 160px 11px #631de7;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.evaluation-page .btn_box button:hover,
+.evaluation-page .btn_box a.eval-calc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 1px 4px 180px 14px #631de7;
+}

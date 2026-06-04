@@ -11,14 +11,22 @@ export function VideoShowcase() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  const handlePlay = () => {
-    if (videoRef.current) {
-      if (playing) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
+  const handlePlay = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    try {
+      if (!video.paused) {
+        video.pause();
+        return;
       }
-      setPlaying(!playing);
+      // preload="none" — fetch source on first user gesture
+      if (video.readyState < HTMLMediaElement.HAVE_METADATA) {
+        video.load();
+      }
+      await video.play();
+    } catch {
+      setPlaying(false);
     }
   };
 
@@ -43,23 +51,25 @@ export function VideoShowcase() {
               <video
                 ref={videoRef}
                 src={assets.video}
-                className="h-full w-full object-cover"
+                className="relative z-0 h-full w-full object-cover"
                 loop
                 playsInline
-                preload="none"
+                preload="metadata"
                 poster={assets.heroBg}
+                controls={playing}
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
+                onEnded={() => setPlaying(false)}
               />
 
               {/* Play overlay */}
               {!playing && (
                 <motion.button
                   type="button"
-                  onClick={handlePlay}
+                  onClick={() => void handlePlay()}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="absolute inset-0 flex items-center justify-center bg-void/40 backdrop-blur-sm transition-colors hover:bg-void/30"
+                  className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center bg-void/40 backdrop-blur-sm transition-colors hover:bg-void/30"
                   aria-label="Play video"
                 >
                   <motion.div

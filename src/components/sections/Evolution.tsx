@@ -113,7 +113,7 @@ export function Evolution() {
             travelling deep space, going on adventures, and constantly providing you with
             passive rewards.
           </p>
-          <Button href="#collection" variant="secondary">
+          <Button href="/Evaluation" variant="secondary">
             Visit Evolution Lab
             <ArrowRight size={16} />
           </Button>

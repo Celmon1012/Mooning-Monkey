@@ -1,11 +1,13 @@
 import {
   BookOpen,
   Coins,
+  Crown,
+  FileText,
   Gamepad2,
   Gift,
+  GraduationCap,
   HelpCircle,
   Images,
-  Layers,
   Map,
   Rocket,
   ScrollText,
@@ -16,11 +18,14 @@ import {
   Zap,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { assets, links } from './assets';
 
 export interface NavLink {
   label: string;
   href: string;
   icon: LucideIcon;
+  /** Opens in a new tab (e.g. Docs) */
+  external?: boolean;
 }
 
 export interface EvolutionStage {
@@ -58,37 +63,30 @@ export interface NavMenuGroup {
   items: NavLink[];
 }
 
-export const navMenuGroups: NavMenuGroup[] = [
-  {
-    label: 'Project',
-    icon: Layers,
-    items: [
-      { label: 'Story', href: '#about', icon: ScrollText },
-      { label: 'Evolution', href: '#evolution', icon: Sparkles },
-      { label: 'Collection', href: '#collection', icon: Images },
-      { label: 'Comic', href: '#comic', icon: BookOpen },
-    ],
-  },
-  {
-    label: 'Ecosystem',
-    icon: Coins,
-    items: [
-      { label: 'Token', href: '#token', icon: Zap },
-      { label: 'Roadmap', href: '#roadmap', icon: Map },
-    ],
-  },
-  {
-    label: 'Community',
-    icon: Users,
-    items: [
-      { label: 'Team', href: '#team', icon: Users },
-      { label: 'FAQ', href: '#faq', icon: HelpCircle },
-    ],
-  },
+/** Standalone header links (Lumia hover swap) */
+export const navStandaloneLinks: NavLink[] = [
+  { label: 'Story', href: '/#about', icon: ScrollText },
+  { label: 'Evolution', href: '/Evaluation', icon: Sparkles },
+  { label: 'Collection', href: '/#collection', icon: Images },
+  { label: 'Comic', href: '/#comic', icon: BookOpen },
+  { label: 'Token', href: '/#token', icon: Zap },
 ];
 
-/** Flat list for footer and mobile search */
-export const navLinks: NavLink[] = navMenuGroups.flatMap((group) => group.items);
+/** Single header dropdown — matches original site "Learn More" */
+export const learnMoreMenu: NavMenuGroup = {
+  label: 'Learn More',
+  icon: GraduationCap,
+  items: [
+    { label: 'Roadmap', href: '/#roadmap', icon: Map },
+    { label: 'Membership', href: '/#membership', icon: Crown },
+    { label: 'Team', href: '/#team', icon: Users },
+    { label: 'FAQs', href: '/#faq', icon: HelpCircle },
+    { label: 'Docs', href: links.docs, icon: FileText, external: true },
+  ],
+};
+
+/** Flat list for footer navigation */
+export const navLinks: NavLink[] = [...navStandaloneLinks, ...learnMoreMenu.items];
 
 export const evolutionStages: EvolutionStage[] = [
   {
@@ -172,30 +170,52 @@ export const tokenFeatures: TokenFeature[] = [
   },
 ];
 
-export const membershipBenefits = [
+export interface MembershipBenefit {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  image: string;
+  href: string;
+  cta: string;
+}
+
+/** Original site membership grid — img1–img4 + sect1 copy */
+export const membershipBenefits: MembershipBenefit[] = [
   {
     icon: Sparkles,
     title: 'Evolution Madness',
     description:
-      'Face extinction and evolve from 12,000 ordinary monkeys into 500 eternal, valuable Yetis through advanced space technology.',
+      'The Mooning Monkeys are facing an extinction level event, and, in order to survive, they NEED to EVOLVE. Fortunately, they have a plan… During their travels, they will turn from 12,000 Ordinary Mooning Monkeys, into 500 Eternal, Valuable, And Unique Yeti\'s.',
+    image: assets.nfts[0],
+    href: '/Evaluation',
+    cta: 'Visit Evolution Lab',
   },
   {
     icon: BookOpen,
-    title: 'Epic Sci-Fi Comic',
+    title: 'Comic Book',
     description:
-      'Limited Digital NFT Edition — 4 chapters of 14 pages each, bringing back the excitement of your favorite childhood comics.',
+      'This intriguing and action-packed story, available in a Limited Digital NFT Edition, will bring back the excitement you had back as a kid, when you were reading your favorite comic books, fantasizing all day about limitless worlds and opportunities.',
+    image: assets.nfts[1],
+    href: '/#comic',
+    cta: 'Check Out Comic Page',
   },
   {
     icon: Zap,
     title: 'Token Reward Program',
     description:
-      'Earn daily $TAK tokens while holding your Mooning Monkeys AND passively earn from game profits simultaneously.',
+      'This membership will give you the opportunity to Earn Even More Rewards by receiving DAILY TAKIONS ($TAK) without having to do any extra work, while you simply hold your Mooning Monkeys, AND, passively earn money from your game profits.',
+    image: assets.nfts[2],
+    href: '/#token',
+    cta: 'Token Utility Overview',
   },
   {
     icon: Rocket,
     title: 'Tons of Surprises',
     description:
-      'The good kind of surprises await — exclusive airdrops, events, and developments for all Mooning Monkey holders.',
+      'Unfortunately, since they are surprises, we can\'t reveal them right now, but just know that we\'re talking about the good kind of surprises! (Not The Kind Which Will Require You To Evolve Into An Eternal Yeti)',
+    image: assets.nfts[3],
+    href: '/#roadmap',
+    cta: 'Check Out Roadmap',
   },
 ];
 
