@@ -5,20 +5,18 @@ import { Navbar } from './components/layout/Navbar';
 import { WhitelistRail } from './components/layout/WhitelistRail';
 import { EvolutionLabPage } from './pages/EvolutionLabPage';
 import { HomePage } from './pages/HomePage';
+import { scrollToSectionWhenReady } from './utils/navigation';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
     if (hash) {
-      const id = hash.replace('#', '');
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
+      const id = hash.replace(/^#/, '');
+      scrollToSectionWhenReady(id);
+      return;
     }
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0 });
   }, [pathname, hash]);
 
   return null;
@@ -34,6 +32,7 @@ function AppLayout() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Evaluation" element={<EvolutionLabPage />} />
+          <Route path="/evaluation" element={<EvolutionLabPage />} />
         </Routes>
       </main>
       <Footer />

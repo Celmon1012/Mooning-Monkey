@@ -1,11 +1,19 @@
-import { useEffect, useState, type CSSProperties } from 'react';
-import { Link } from 'react-router-dom';
-import { LazyImage } from '../components/ui/LazyImage';
-import { assets } from '../data/assets';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, ChevronRight } from 'lucide-react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   AlienYetiPhase,
   GalacticGorillasPhase,
 } from '../components/evolution-lab/EvolutionTreePhases';
+import { AnimatedSection } from '../components/ui/AnimatedSection';
+import { InternalLink } from '../components/ui/InternalLink';
+import { LazyImage } from '../components/ui/LazyImage';
+import { PosterBackground } from '../components/ui/PosterBackground';
+import { Reveal3D } from '../components/ui/Reveal3D';
+import { SectionHeading } from '../components/ui/SectionHeading';
+import { TiltCard } from '../components/ui/TiltCard';
+import { useParallax } from '../components/ui/useParallax';
+import { assets } from '../data/assets';
 import {
   evolutionEarning,
   evolutionLabHero,
@@ -15,27 +23,42 @@ import {
   evolutionTreeSteps,
   evolveStageContent,
   rarityTip,
+  type EvolutionStageCard,
   type EvolveStage,
 } from '../data/evolutionLab';
 import '../styles/evolution-lab.css';
 
-function ArrowConnector({ className = '' }: { className?: string }) {
+const heroStats = [
+  { value: '4', label: 'Stages' },
+  { value: '3', label: 'Evolutions' },
+  { value: '500', label: 'Elite Yetis' },
+];
+
+function StagePreviewCard({ card, index }: { card: EvolutionStageCard; index: number }) {
   return (
-    <svg
-      className={`sidearrow ${className}`}
-      viewBox="0 0 30 45"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-    >
-      <path
-        d="M4 4 L26 22.5 L4 41"
-        stroke="#f832ec"
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Reveal3D delay={index * 0.08} className="group relative text-center">
+      <p className="mb-4 font-body text-[10px] font-medium uppercase tracking-widest text-white/40">
+        Stage {card.stage}
+      </p>
+      <TiltCard intensity={8}>
+        <div
+          className={`ev-stage-card mx-auto aspect-square w-full max-w-[220px] overflow-hidden rounded-2xl ${
+            card.stage === 1
+              ? 'ev-stage-card--revealed'
+              : 'ev-stage-card--hidden flex items-center justify-center'
+          }`}
+        >
+          {card.stage === 1 ? (
+            <LazyImage src={card.image} alt={card.name} className="h-full w-full object-cover" />
+          ) : (
+            <span className="font-brand text-[clamp(3.5rem,9vw,5rem)] font-bold leading-none text-void/90">
+              ?
+            </span>
+          )}
+        </div>
+      </TiltCard>
+      <h3 className="mt-4 font-display text-lg font-semibold text-white sm:text-xl">{card.name}</h3>
+    </Reveal3D>
   );
 }
 
@@ -43,263 +66,352 @@ function EvolveSlots({ stage }: { stage: EvolveStage }) {
   const border = assets.evolutionLab.nftBorder;
   const placeholder = assets.evolutionLab.nftPlaceholder;
 
-  const slot = (key: string, className = 'border_img') => (
-    <img key={key} className={className} src={border} alt="" />
-  );
-
-  const result = (
-    <div className="ib_marLeft">
-      <img className="ques_image" src={placeholder} alt="Evolved NFT" />
-      <div className="button_container">
-        <button type="button">Evolve</button>
-      </div>
+  const Slot = () => (
+    <div className="glass shrink-0 rounded-xl p-2 transition-transform duration-300 hover:-translate-y-1">
+      <LazyImage src={border} alt="" className="h-24 w-24 object-contain sm:h-28 sm:w-28" />
     </div>
   );
 
-  if (stage === '2') {
-    return (
-      <div className="first_round_image">
-        {slot('1')}
-        {slot('2', 'border_img ones')}
-        {slot('3', 'border_img ones')}
-        {slot('4', 'border_img ones')}
-        <ArrowConnector className="ones_ar" />
-        {result}
+  const Result = () => (
+    <div className="flex flex-col items-center gap-4">
+      <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-3">
+        <LazyImage
+          src={placeholder}
+          alt="Evolved NFT"
+          className="h-28 w-28 object-contain sm:h-32 sm:w-32"
+        />
       </div>
-    );
-  }
+      <button type="button" className="hero-btn-primary rounded-full px-6 py-2.5 text-sm font-semibold text-void">
+        Evolve
+      </button>
+    </div>
+  );
 
-  if (stage === '3') {
-    return (
-      <div className="round_divTwo">
-        <img className="border_img1" src={border} alt="" />
-        <img className="border_img1 doted" src={border} alt="" />
-        <img className="border_img1 doted" src={border} alt="" />
-        <ArrowConnector className="doted" />
-        <div className="ib_marLeft">
-          <img className="ques_image3" src={placeholder} alt="Evolved NFT" />
-          <div className="button_container buttonss_container">
-            <button type="button">Evolve</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const layouts: Record<EvolveStage, ReactNode> = {
+    '2': (
+      <>
+        <Slot />
+        <Slot />
+        <Slot />
+        <Slot />
+        <ChevronRight className="hidden h-7 w-7 shrink-0 text-white/25 sm:block" aria-hidden />
+        <Result />
+      </>
+    ),
+    '3': (
+      <>
+        <Slot />
+        <Slot />
+        <Slot />
+        <ChevronRight className="hidden h-7 w-7 shrink-0 text-white/25 sm:block" aria-hidden />
+        <Result />
+      </>
+    ),
+    '4': (
+      <>
+        <Slot />
+        <Slot />
+        <ChevronRight className="hidden h-7 w-7 shrink-0 text-white/25 sm:block" aria-hidden />
+        <Result />
+      </>
+    ),
+  };
 
   return (
-    <div className="images_divFolder">
-      <img className="border_img2" src={border} alt="" />
-      <img className="border_img2 brrr left_im" src={border} alt="" />
-      <ArrowConnector className="arr" />
-      <ArrowConnector className="arrs" />
-      <div className="ib_marLeft">
-        <img className="ques_image1" src={placeholder} alt="Evolved NFT" />
-        <div className="button_container">
-          <button type="button">Evolve</button>
-        </div>
-      </div>
-    </div>
+    <motion.div
+      key={stage}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+      className="flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+    >
+      {layouts[stage]}
+    </motion.div>
   );
 }
 
 const MONKEY_GRID_COLS = 6;
 const MONKEY_GRID_ROWS = 4;
 
-/** 6×4 column tree — matches reference Evaluation page layout */
-function MonkeysTreeGrid({
-  images,
-  footerTitle,
-}: {
-  images: readonly string[];
-  footerTitle?: string;
-}) {
+function MonkeysTreeGrid({ images }: { images: readonly string[] }) {
   return (
-    <div className="eval-monkeys-columns-wrap">
-      <div className="eval-monkeys-columns">
+    <div className="ev-tree-wrap">
+      <div className="ev-monkeys-grid">
         {Array.from({ length: MONKEY_GRID_COLS }, (_, col) => (
-          <div key={col} className="eval-monkey-column">
+          <div key={col} className="ev-monkey-col">
             {Array.from({ length: MONKEY_GRID_ROWS }, (_, row) => {
               const index = row * MONKEY_GRID_COLS + col;
               const src = images[index];
               if (!src) return null;
               return (
-                <div key={row} className="eval-monkey-slot">
-                  <div className="main-timeline">
-                    <div className="timeline">
-                      <div className="timeline-content">
-                        <div className="timeline-year">
-                          <LazyImage src={src} alt="" className="monkey_img" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {row < MONKEY_GRID_ROWS - 1 && <div className="eval-monkey-connector-v" aria-hidden />}
-                  {row === MONKEY_GRID_ROWS - 1 && (
-                    <div className="eval-monkey-connector-down" aria-hidden />
-                  )}
+                <div key={row} className="ev-monkey-slot">
+                  <LazyImage src={src} alt="" className="ev-monkey-img" />
+                  {row < MONKEY_GRID_ROWS - 1 && <div className="ev-connector-v" aria-hidden />}
+                  {row === MONKEY_GRID_ROWS - 1 && <div className="ev-connector-down" aria-hidden />}
                 </div>
               );
             })}
           </div>
         ))}
       </div>
-      <div className="Monkey_bottom_border" />
-      {footerTitle && (
-        <h2 className="quetion_mark_heading quetion_mark_heading--after-bar eval-gradient-text">
-          {footerTitle}
-        </h2>
-      )}
+      <div className="ev-tree-hbar" />
     </div>
   );
+}
+
+function Accent({ children }: { children: ReactNode }) {
+  return <span className="text-cyan-glow">{children}</span>;
 }
 
 export function EvolutionLabPage() {
   const [activeStage, setActiveStage] = useState<EvolveStage>('2');
   const stage = evolveStageContent[activeStage];
+  const heroRef = useRef<HTMLElement>(null);
+  const bgY = useParallax(heroRef, ['-10%', '10%']);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const pageStyle = {
-    '--eval-page-bg': `url(${assets.evolutionLab.pageBg})`,
-    '--eval-evolve-bg': `url(${assets.evolutionLab.evolveBg})`,
-  } as CSSProperties;
-
   return (
-    <div className="evaluation-page Evaluation_mainDiv" style={pageStyle}>
-      {/* Hero */}
-      <section className="Evaluation_section1">
-        <div className="Evaluation_Innersection1">
-          <h1 className="section1_h1 eval-gradient-text">{evolutionLabHero.title}</h1>
-          <h3 className="section1_h3">{evolutionLabHero.subtitle}</h3>
-          <h3 className="section1_h33">{evolutionLabHero.tagline}</h3>
-          <h4 className="section1_h4">{evolutionLabHero.detail}</h4>
-        </div>
-      </section>
+    <div className="relative overflow-hidden bg-void">
+      {/* Hero — same language as landing Hero / Membership */}
+      <section
+        ref={heroRef}
+        className="relative overflow-hidden pb-14 pt-6 sm:pb-16 sm:pt-8"
+      >
+        <motion.div
+          className="pointer-events-none absolute inset-0 scale-110 bg-cover bg-center opacity-[0.08]"
+          style={{ backgroundImage: `url(${assets.sec3Back})`, y: bgY }}
+          aria-hidden
+        />
+        <PosterBackground
+          src={assets.sec3Bg}
+          opacity={0.12}
+          overlayClassName="bg-gradient-to-b from-void/95 via-void/90 to-void"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-void via-transparent to-void" aria-hidden />
 
-      {/* Stage cards — horizontal row like reference */}
-      <section className="card_main_section2">
-        <div className="cards_twos">
-          {evolutionStageCards.map((card) => (
-            <div key={card.stage} className="card_one_section2">
-              <h4 className="h4_section2">Stage {card.stage}</h4>
-              <LazyImage src={card.image} alt={card.name} className="monkey_section2" />
-              <h4 className="h44_section2 eval-gradient-text">{card.name}</h4>
-            </div>
-          ))}
-        </div>
-      </section>
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <Reveal3D immediate>
+              <p className="font-body text-xs font-medium uppercase tracking-[2px] text-white/55">
+                Evolution Lab
+              </p>
+            </Reveal3D>
 
-      {/* Evolve + tree + earning */}
-      <section className="section3_main">
-        <div className="section3_innerDiv">
-          <div className="evolve_section3Div">
-            <h3 className="evolve_section3 eval-gradient-text">EVOLVE NOW</h3>
-            <h4 className="select_section3">
-              Select the available evolution stage according to your Mooning Monkey NFT holding
-              to process the evolution
-            </h4>
+            <Reveal3D immediate delay={0.08}>
+              <h1 className="mt-4 font-brand text-[2rem] font-medium leading-[1.15] text-white sm:text-[2.35rem] lg:text-[2.75rem]">
+                <span className="hero-headline-accent">The Evolution Lab</span>
+              </h1>
+            </Reveal3D>
+
+            <Reveal3D immediate delay={0.14}>
+              <p className="mt-6 max-w-2xl text-[15px] leading-[1.65] text-white/65">
+                {evolutionLabHero.subtitle}
+              </p>
+            </Reveal3D>
+
+            <Reveal3D immediate delay={0.2}>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/50 sm:text-[15px]">
+                {evolutionLabHero.tagline}
+              </p>
+            </Reveal3D>
+
+            <Reveal3D immediate delay={0.26}>
+              <div className="mt-8 grid max-w-md grid-cols-3 overflow-hidden rounded-xl border border-white/[0.08] bg-void/40 backdrop-blur-md">
+                {heroStats.map((stat, i) => (
+                  <div
+                    key={stat.label}
+                    className={`px-4 py-5 sm:px-5 ${i > 0 ? 'border-l border-white/[0.08]' : ''}`}
+                  >
+                    <div className="font-display text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                      {stat.value}
+                    </div>
+                    <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/40">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Reveal3D>
+
+            <Reveal3D immediate delay={0.32}>
+              <p className="mt-6 max-w-lg text-sm text-white/45">{evolutionLabHero.detail}</p>
+            </Reveal3D>
           </div>
+        </div>
+      </section>
 
-          <div className="active_stageButton">
+      <div className="section-divider" />
+
+      {/* Stage cards — reference picture style, landing typography */}
+      <AnimatedSection mesh="cyan" className="section-padding overflow-hidden">
+        <motion.div
+          className="pointer-events-none absolute inset-0 scale-110 bg-cover bg-center opacity-[0.06]"
+          style={{ backgroundImage: `url(${assets.sec3Back})` }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-void via-transparent to-void" aria-hidden />
+
+        <div className="relative mx-auto max-w-7xl">
+          <SectionHeading
+            label="Evolution path"
+            title="From Monkey to Eternal Yeti"
+            subtitle="Four stages of evolution. Burn lower-tier NFTs to ascend — each form unlocks higher game rewards and holder benefits."
+          />
+
+          <div className="relative">
+            <div className="absolute left-0 right-0 top-[42%] hidden h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-glow/25 to-transparent lg:block" />
+            <div className="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-x-6">
+              {evolutionStageCards.map((card, i) => (
+                <StagePreviewCard key={card.stage} card={card} index={i} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      <div className="section-divider" />
+
+      {/* Evolve panel — mint-panel like BuyMint / ProfitCalculator */}
+      <AnimatedSection mesh="mixed" className="section-padding">
+        <div className="relative mx-auto max-w-7xl">
+          <SectionHeading
+            label="Evolve now"
+            title="Sacrifice. Transform. Earn more."
+            subtitle="Select your evolution stage based on your current NFT holdings, then burn the required monkeys to unlock the next form."
+          />
+
+          <div className="mint-tab-track relative mx-auto mb-8 flex max-w-sm rounded-full p-1">
             {(['2', '3', '4'] as const).map((id) => (
               <button
                 key={id}
                 type="button"
-                className={`${id === '2' ? 'active_stage2' : 'active_stage22'} ${
-                  activeStage === id ? 'activeBtn' : ''
+                className={`relative z-10 flex-1 rounded-full py-2.5 font-body text-sm font-medium transition-colors duration-200 ${
+                  activeStage === id ? 'text-white' : 'text-white/45 hover:text-white/65'
                 }`}
                 onClick={() => setActiveStage(id)}
               >
-                Stage {id}
+                {activeStage === id && (
+                  <motion.span
+                    layoutId="evolve-tab-pill"
+                    className="mint-tab-active absolute inset-0 rounded-full"
+                    transition={{ type: 'spring', stiffness: 400, damping: 34 }}
+                  />
+                )}
+                <span className="relative">Stage {id}</span>
               </button>
             ))}
           </div>
 
-          <div className="box_mainDiv">
-            <div className="box_textDiv">
-              <div className="button_divMa">
-                <h4 className="box_nftText eval-gradient-text">{stage.nftTitle}</h4>
-                <div className="both_button">
-                  <div className="buttons_container">
-                    <button type="button">Connect Wallet</button>
-                  </div>
-                  <div className="buttons_container">
-                    <Link to="/#buy" style={{ textDecoration: 'none' }}>
-                      <button type="button">Buy Monkey</button>
-                    </Link>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeStage}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.3 }}
+              className="mint-panel overflow-hidden rounded-3xl"
+            >
+              <div className="border-b border-white/[0.06] px-6 py-6 sm:px-8 sm:py-7">
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                  <h3 className="font-display text-xl font-semibold text-white sm:text-2xl">
+                    {stage.nftTitle}
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      className="hero-btn-secondary rounded-full px-5 py-2.5 text-sm font-medium text-white/90"
+                    >
+                      Connect Wallet
+                    </button>
+                    <InternalLink href="/#buy">
+                      <button
+                        type="button"
+                        className="hero-btn-primary rounded-full px-5 py-2.5 text-sm font-semibold text-void"
+                      >
+                        Buy Monkey
+                      </button>
+                    </InternalLink>
                   </div>
                 </div>
               </div>
 
-              <div className="first_textDiv">
-                <p className="order_text">
-                  {stage.id === '2' && (
-                    <>
-                      In order to achieve the powerful <span className="gal">Galactic Gorilla</span>
-                      , you&apos;ll have to sacrifice 4 of your current{' '}
-                      <span className="gal">Mooning Monkeys</span> to depart into deep space and
-                      surpass the obstacles they&apos;ll encounter on their way to the new planet.
-                    </>
-                  )}
-                  {stage.id === '3' && (
-                    <>
-                      The <span className="gal">Alien Gorilla</span> is the{' '}
-                      <span className="gal">KEY</span> to winning against the alien invader and
-                      winning The Inter-Galactic War — you&apos;ll have to sacrifice{' '}
-                      <span className="gal">3 Galactic Gorillas</span> in order to achieve such a
-                      strong being and protect the species from extinction.
-                    </>
-                  )}
-                  {stage.id === '4' && (
-                    <>
-                      Although <span className="gal">The Alien Gorilla</span> is extremely
-                      powerful, it is still bound by the shackles of mortality… To guarantee the
-                      survival of the <span className="gal">Mooning Monkey&apos;s Species AND</span>{' '}
-                      make sure they do so with style… You&apos;ll need to sacrifice{' '}
-                      <span className="gal">2 Of Your Alien Gorillas</span> to make{' '}
-                      <span className="gal">1 Eternal Yeti</span> that will live forever on the
-                      Blockchain and earn the highest possible levels of daily game rewards.
-                    </>
-                  )}
-                </p>
-                <p className="note_text">
-                  <span className="gal">NOTE:</span> By clicking &quot;<span className="gal">Evolve</span>
-                  &quot;, the <span>{stage.sacrificeLabel}</span> you&apos;ve chosen will be sent to a
-                  Solana black hole wallet and disappear forever, however,{' '}
-                  <span>EACH EVOLUTION</span> will make you more money in the{' '}
-                  <span className="gal">Mooning Monkey Game.</span>
-                </p>
+              <div className="space-y-6 px-6 py-7 sm:px-8 sm:py-8">
+                <div className="space-y-4 text-[15px] leading-[1.65] text-white/60">
+                  <p>
+                    {stage.id === '2' && (
+                      <>
+                        In order to achieve the powerful <Accent>Galactic Gorilla</Accent>, you&apos;ll
+                        have to sacrifice 4 of your current <Accent>Mooning Monkeys</Accent> to depart
+                        into deep space and surpass the obstacles they&apos;ll encounter on their way to the
+                        new planet.
+                      </>
+                    )}
+                    {stage.id === '3' && (
+                      <>
+                        The <Accent>Alien Gorilla</Accent> is the <Accent>KEY</Accent> to winning against
+                        the alien invader and winning The Inter-Galactic War — you&apos;ll have to sacrifice{' '}
+                        <Accent>3 Galactic Gorillas</Accent> in order to achieve such a strong being and
+                        protect the species from extinction.
+                      </>
+                    )}
+                    {stage.id === '4' && (
+                      <>
+                        Although <Accent>The Alien Gorilla</Accent> is extremely powerful, it is still
+                        bound by the shackles of mortality… You&apos;ll need to sacrifice{' '}
+                        <Accent>2 Of Your Alien Gorillas</Accent> to make <Accent>1 Eternal Yeti</Accent>{' '}
+                        that will live forever on the Blockchain and earn the highest possible levels of
+                        daily game rewards.
+                      </>
+                    )}
+                  </p>
+                  <p className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3 text-sm text-white/50">
+                    <span className="font-medium text-cyan-glow">Note:</span> By clicking &quot;Evolve&quot;,
+                    the {stage.sacrificeLabel} you&apos;ve chosen will be sent to a Solana black hole wallet
+                    and disappear forever — however, each evolution will make you more money in the{' '}
+                    <Accent>Mooning Monkey Game</Accent>.
+                  </p>
+                </div>
+
+                <div className="border-t border-white/[0.06] pt-8 text-center">
+                  <h4 className="mb-8 font-display text-lg font-semibold text-white">
+                    Start evolve process
+                  </h4>
+                  <EvolveSlots stage={activeStage} />
+                </div>
               </div>
+            </motion.div>
+          </AnimatePresence>
 
-              <div className="evolve_process">
-                <h4 className="strt_evolve eval-gradient-text">Start evolve process</h4>
-              </div>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-sm italic leading-relaxed text-white/45">
+            {rarityTip}
+          </p>
+        </div>
+      </AnimatedSection>
 
-              <EvolveSlots stage={activeStage} />
-            </div>
-          </div>
+      <div className="section-divider" />
 
-          <p className="new-text-add">{rarityTip}</p>
+      {/* Evolution tree */}
+      <AnimatedSection mesh="purple" className="section-padding overflow-hidden">
+        <PosterBackground
+          src={assets.sec3Bg}
+          opacity={0.1}
+          overlayClassName="bg-gradient-to-b from-void/92 via-void/88 to-void"
+        />
 
-          {/* Evolution tree */}
-          <div className="tree_container">
-            <h2 className="evolution_heading eval-gradient-text">{evolutionTreeIntro.title}</h2>
-            <h5 className="Evolution_text">
-              In order to achive evolution,earn and spot among the 500 prestigious{' '}
-              <span className="gal">Eternal Yeti</span> holder&apos;s circle ,and receive the highest
-              possible amount of passive rewards, you&apos;ll need 24 &quot;
-              <span className="gal">Mooning Monkeys</span>&quot;
-            </h5>
-            <h5 className="Evolution_text" style={{ marginTop: '1.25rem' }}>
-              Bellow,you can see <span className="gal">The Evolution</span>, a visual that shows you{' '}
-              <span className="gal">EXACTLY</span> how evolution process works:
-            </h5>
+        <div className="relative mx-auto max-w-7xl text-center">
+          <SectionHeading
+            label="Evolution tree"
+            title={evolutionTreeIntro.title}
+            subtitle={`${evolutionTreeIntro.paragraph1} ${evolutionTreeIntro.paragraph2}`}
+          />
 
-            <h2 className="quetion_mark_heading eval-gradient-text">
+          <div className="evolution-lab-tree mt-2">
+            <p className="font-body text-sm font-medium text-white/55 sm:text-[15px]">
               {evolutionTreeSteps[0].title}
-            </h2>
+            </p>
             <MonkeysTreeGrid images={evolutionTreeSteps[0].images} />
             <GalacticGorillasPhase title={evolutionTreeSteps[1].title} />
             <AlienYetiPhase
@@ -307,52 +419,77 @@ export function EvolutionLabPage() {
               yetiTitle={evolutionTreeSteps[3].title}
             />
           </div>
+        </div>
+      </AnimatedSection>
 
-          {/* Evolution earning */}
-          <div className="pd__reward">
-            <h2 className="eval-earn-title eval-gradient-text">{evolutionEarning.title}</h2>
-            <p className="table_text">{evolutionEarning.text}</p>
-            <p className="table_text" style={{ marginBottom: '2.5rem' }}>
-              {evolutionEarning.text2}
-            </p>
+      <div className="section-divider" />
 
-            <div className="result-table-sec">
-              <table className="result-table">
-                <thead>
-                  <tr>
-                    <th>STAGE</th>
-                    <th>UNIT</th>
-                    <th className="remarks-width">REMARKS</th>
-                    <th>REWARDS*</th>
-                    <th>BONUS*</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {evolutionRewardsTable.map((row, i) => (
-                    <tr key={row.stage}>
-                      <td>{row.stage}</td>
-                      <td>{row.unit}</td>
-                      <td>{row.remarks}</td>
-                      {i === 0 && (
-                        <td rowSpan={4} className="rewards-cell">
-                          25%
-                        </td>
-                      )}
-                      <td>{row.bonus}</td>
+      {/* Rewards */}
+      <AnimatedSection mesh="cyan" className="section-padding">
+        <div className="relative mx-auto max-w-7xl">
+          <SectionHeading
+            label="Rewards"
+            title={evolutionEarning.title}
+            subtitle={`${evolutionEarning.text} ${evolutionEarning.text2}`}
+          />
+
+          <Reveal3D>
+            <div className="mint-panel overflow-hidden rounded-3xl">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[540px] text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-white/[0.08]">
+                      {['Stage', 'Unit', 'Remarks', 'Rewards*', 'Bonus*'].map((col) => (
+                        <th
+                          key={col}
+                          className="px-5 py-4 font-body text-[10px] font-medium uppercase tracking-[0.2em] text-white/40"
+                        >
+                          {col}
+                        </th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {evolutionRewardsTable.map((row, i) => (
+                      <tr
+                        key={row.stage}
+                        className={`border-b border-white/[0.04] transition-colors hover:bg-white/[0.02] ${
+                          i === 0 ? 'bg-white/[0.02]' : ''
+                        }`}
+                      >
+                        <td className="px-5 py-4 font-medium text-white/90">{row.stage}</td>
+                        <td className="px-5 py-4 text-white/55">{row.unit}</td>
+                        <td className="max-w-[200px] px-5 py-4 text-white/50">{row.remarks}</td>
+                        {i === 0 && (
+                          <td
+                            rowSpan={4}
+                            className="border-l border-white/[0.06] px-5 py-4 text-center font-display text-2xl font-semibold text-cyan-glow"
+                          >
+                            25%
+                          </td>
+                        )}
+                        <td className="px-5 py-4 font-medium text-cyan-glow/80">{row.bonus}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          </Reveal3D>
 
-          <div className="btn_box">
-            <Link to="/#calculator" className="eval-calc-btn">
-              check out profit calculator
-            </Link>
+          <div className="mt-10 flex justify-center">
+            <InternalLink href="/#calculator">
+              <button
+                type="button"
+                className="hero-btn-secondary inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium text-white/90"
+              >
+                Check out profit calculator
+                <ArrowRight size={16} strokeWidth={2} />
+              </button>
+            </InternalLink>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </div>
   );
 }

@@ -14,7 +14,7 @@ export const assets = {
   video: `${BASE}/mooningMonkey.a594b95b.mp4`,
   questionBox: `${BASE}/question.ea5bdd63.png`,
   evolution: {
-    mooningMonkey: `${BASE}/part-1.d338cda9.png`,
+    mooningMonkey: '/images/monky1.png',
     galacticGorilla: `${BASE}/part2.e806f3e9.png`,
     alienGorilla: `${BASE}/part3.08aa5894.png`,
     eternalYeti: `${BASE}/part4.d54ca0bd.png`,
@@ -23,7 +23,7 @@ export const assets = {
     pageBg: `${BASE}/firstbg.dbf0eaa7.jpg`,
     evolveBg: `${BASE}/secondbg.bd1f602d.jpg`,
     heroBg: `${BASE}/sec1.3473327d.jpg`,
-    stagePreview: `${BASE}/monky1.a427c53c.png`,
+    stagePreview: '/images/monky1.png',
     nftBorder: `${BASE}/border.53bd6258.png`,
     nftPlaceholder: `${BASE}/question.ea5bdd63.png`,
     galacticCard: `${BASE}/cardg.24c23a20.png`,

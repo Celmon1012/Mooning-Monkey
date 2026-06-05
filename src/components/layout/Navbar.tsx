@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { assets } from '../../data/assets';
 import { learnMoreMenu, navStandaloneLinks, type NavLink } from '../../data/content';
+import { InternalLink } from '../ui/InternalLink';
 
 function NavHref({
   href,
@@ -37,9 +38,9 @@ function NavHref({
   }
   if (href.startsWith('/')) {
     return (
-      <Link to={href} className={className} title={title} onClick={onClick}>
+      <InternalLink href={href} className={className} title={title} onClick={onClick}>
         {children}
-      </Link>
+      </InternalLink>
     );
   }
   return (

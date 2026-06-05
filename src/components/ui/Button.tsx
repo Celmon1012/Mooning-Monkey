@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { type ReactNode } from 'react';
+import { InternalLink } from './InternalLink';
+import { isInternalHref } from '../../utils/navigation';
 
 interface ButtonProps {
   children: ReactNode;
@@ -35,6 +37,18 @@ export function Button({
   const classes = `inline-flex items-center justify-center gap-2 transition-all duration-300 ${variants[variant]} ${sizes[size]} ${className}`;
 
   if (href) {
+    if (isInternalHref(href)) {
+      return (
+        <InternalLink
+          href={href}
+          className={classes}
+          motionProps={{ whileHover: { scale: 1.03 }, whileTap: { scale: 0.98 } }}
+        >
+          {children}
+        </InternalLink>
+      );
+    }
+
     return (
       <motion.a
         href={href}

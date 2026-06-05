@@ -1,8 +1,8 @@
-/** 6 purple ? cards — 3×2 grid with pink tree lines (matches target screenshot) */
+/** 6 purple ? cards — 3×2 grid with tree connectors */
 export function GalacticGorillasPhase({ title }: { title: string }) {
   return (
     <section className="galactic-phase">
-      <h2 className="quetion_mark_heading eval-gradient-text">{title}</h2>
+      <h2 className="quetion_mark_heading">{title}</h2>
 
       <div className="galactic-tree">
         <div className="galactic-cards">
@@ -23,7 +23,7 @@ export function GalacticGorillasPhase({ title }: { title: string }) {
   );
 }
 
-/** 2 pink ? cards → connector → gradient yeti → title */
+/** 2 ? cards → connector → gradient yeti → title */
 export function AlienYetiPhase({
   alienTitle,
   yetiTitle,
@@ -33,7 +33,7 @@ export function AlienYetiPhase({
 }) {
   return (
     <section className="alien-yeti-phase">
-      <h2 className="quetion_mark_heading eval-gradient-text">{alienTitle}</h2>
+      <h2 className="quetion_mark_heading">{alienTitle}</h2>
 
       <div className="alien-tree">
         <div className="alien-cards">
@@ -53,7 +53,7 @@ export function AlienYetiPhase({
         <span className="eval-q-card eval-q-card--yeti">?</span>
       </div>
 
-      <h2 className="Get_External_heading eval-gradient-text">{yetiTitle}</h2>
+      <h2 className="Get_External_heading">{yetiTitle}</h2>
     </section>
   );
 }

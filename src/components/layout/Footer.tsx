@@ -1,5 +1,7 @@
 import { assets, links } from '../../data/assets';
 import { navLinks } from '../../data/content';
+import { InternalLink } from '../ui/InternalLink';
+import { isInternalHref } from '../../utils/navigation';
 
 const footerLinks = [
   { label: 'Buy Now', href: '/#buy' },
@@ -35,12 +37,23 @@ export function Footer() {
             <ul className="space-y-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-white/50 transition-colors hover:text-cyan-glow"
-                  >
-                    {link.label}
-                  </a>
+                  {link.external || !isInternalHref(link.href) ? (
+                    <a
+                      href={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      className="text-sm text-white/50 transition-colors hover:text-cyan-glow"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <InternalLink
+                      href={link.href}
+                      className="text-sm text-white/50 transition-colors hover:text-cyan-glow"
+                    >
+                      {link.label}
+                    </InternalLink>
+                  )}
                 </li>
               ))}
             </ul>
@@ -53,14 +66,23 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.href.startsWith('http') ? '_blank' : undefined}
-                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-sm text-white/50 hover:text-cyan-glow"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith('http') ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-white/50 hover:text-cyan-glow"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <InternalLink
+                      href={link.href}
+                      className="text-sm text-white/50 hover:text-cyan-glow"
+                    >
+                      {link.label}
+                    </InternalLink>
+                  )}
                 </li>
               ))}
               <li>
