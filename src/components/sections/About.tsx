@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { assets } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
+import { InternalLink } from '../ui/InternalLink';
 import { LazyImage } from '../ui/LazyImage';
 import { GlassCard } from '../ui/GlassCard';
 import { SectionHeading } from '../ui/SectionHeading';
@@ -60,21 +61,21 @@ export function About() {
                 <li key={item} className="flex items-start gap-3 text-sm text-white/70">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-glow" />
                   {item === 'Try the profit calculator while we prepare launch' ? (
-                    <a href="#calculator" className="text-accent hover:text-white">
+                    <InternalLink href="/calculator" className="text-accent hover:text-white">
                       {item}
-                    </a>
+                    </InternalLink>
                   ) : (
                     item
                   )}
                 </li>
               ))}
             </ul>
-            <a
-              href="#calculator"
+            <InternalLink
+              href="/calculator"
               className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/70 hover:text-white"
             >
               Profit Calculator →
-            </a>
+            </InternalLink>
           </motion.div>
         </div>
 

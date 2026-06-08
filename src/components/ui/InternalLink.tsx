@@ -22,8 +22,9 @@ export function InternalLink({
 }: InternalLinkProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const isHashLink = href.includes('#');
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleHashClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     onClick?.();
 
     if (!isInternalHref(href)) return;
@@ -59,7 +60,12 @@ export function InternalLink({
   }
 
   const link = (
-    <Link to={toRouterPath(href)} className={className} title={title} onClick={handleClick}>
+    <Link
+      to={toRouterPath(href)}
+      className={className}
+      title={title}
+      onClick={isHashLink ? handleHashClick : onClick}
+    >
       {children}
     </Link>
   );

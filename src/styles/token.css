@@ -1,0 +1,45 @@
+/* Token page — tier lists + wager tables */
+
+.token-tier-list li::before {
+  content: '○';
+  color: #f831ec;
+  margin-right: 0.5rem;
+}
+
+.token-wager-table th {
+  @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#f831ec] sm:px-8;
+}
+
+.token-wager-table td {
+  @apply px-4 py-3 text-left text-sm text-white/85 sm:px-8 sm:text-base;
+}
+
+.token-wager-table tr {
+  @apply border-b border-white/[0.06];
+}
+
+.token-wager-table tbody tr:last-child {
+  @apply border-0;
+}
+
+.token-highlight {
+  @apply text-[#f831ec];
+}
+
+.token-section-image {
+  filter: drop-shadow(0 24px 48px rgba(99, 29, 231, 0.2));
+}
+
+.token-apy-value {
+  animation: token-apy-glow 3s ease-in-out infinite;
+}
+
+@keyframes token-apy-glow {
+  0%,
+  100% {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  50% {
+    color: #5dc8f6;
+  }
+}

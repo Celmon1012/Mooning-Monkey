@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ExternalLink, Minus, PlayCircle, Plus, Wallet } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { assets, links } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
 import { PosterBackground } from '../ui/PosterBackground';
@@ -114,20 +115,25 @@ function CountdownCompact({ d, h, m, s }: { d: number; h: number; m: number; s: 
 }
 
 export function BuyMint() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [tab, setTab] = useState<MintTab>('buy');
   const [amount, setAmount] = useState(1);
   const countdown = useCountdown(new Date('2026-12-16T19:00:00Z'));
   const clamp = (n: number) => Math.min(MAX_PER_WALLET, Math.max(1, n));
 
   useEffect(() => {
-    const hash = window.location.hash;
+    const hash = location.hash;
     if (hash === '#phantom') setTab('phantom');
     else if (hash === '#buy') setTab('buy');
-  }, []);
+  }, [location.hash]);
 
   const handleTabChange = (next: MintTab) => {
     setTab(next);
-    window.history.replaceState(null, '', next === 'phantom' ? '#phantom' : '#buy');
+    navigate(
+      { pathname: location.pathname, hash: next === 'phantom' ? 'phantom' : 'buy' },
+      { replace: true },
+    );
   };
 
   return (

@@ -7,7 +7,7 @@ import {
   Gift,
   GraduationCap,
   HelpCircle,
-  Images,
+  Tags,
   Map,
   Rocket,
   ScrollText,
@@ -67,9 +67,9 @@ export interface NavMenuGroup {
 export const navStandaloneLinks: NavLink[] = [
   { label: 'Story', href: '/#about', icon: ScrollText },
   { label: 'Evolution', href: '/Evaluation', icon: Sparkles },
-  { label: 'Collection', href: '/#collection', icon: Images },
-  { label: 'Comic', href: '/#comic', icon: BookOpen },
-  { label: 'Token', href: '/#token', icon: Zap },
+  { label: 'Attribute', href: '/attributes', icon: Tags },
+  { label: 'Comic', href: '/comic', icon: BookOpen },
+  { label: 'Token', href: '/token', icon: Zap },
 ];
 
 /** Single header dropdown — matches original site "Learn More" */
@@ -196,7 +196,7 @@ export const membershipBenefits: MembershipBenefit[] = [
     description:
       'This intriguing and action-packed story, available in a Limited Digital NFT Edition, will bring back the excitement you had back as a kid, when you were reading your favorite comic books, fantasizing all day about limitless worlds and opportunities.',
     image: assets.nfts[1],
-    href: '/#comic',
+    href: '/comic',
     cta: 'Check Out Comic Page',
   },
   {
@@ -205,7 +205,7 @@ export const membershipBenefits: MembershipBenefit[] = [
     description:
       'This membership will give you the opportunity to Earn Even More Rewards by receiving DAILY TAKIONS ($TAK) without having to do any extra work, while you simply hold your Mooning Monkeys, AND, passively earn money from your game profits.',
     image: assets.nfts[2],
-    href: '/#token',
+    href: '/token',
     cta: 'Token Utility Overview',
   },
   {

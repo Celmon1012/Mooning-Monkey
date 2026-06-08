@@ -478,7 +478,7 @@ export function EvolutionLabPage() {
           </Reveal3D>
 
           <div className="mt-10 flex justify-center">
-            <InternalLink href="/#calculator">
+            <InternalLink href="/calculator">
               <button
                 type="button"
                 className="hero-btn-secondary inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium text-white/90"

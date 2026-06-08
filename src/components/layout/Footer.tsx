@@ -5,10 +5,10 @@ import { isInternalHref } from '../../utils/navigation';
 
 const footerLinks = [
   { label: 'Buy Now', href: '/#buy' },
-  { label: 'Token', href: '/#token' },
+  { label: 'Token', href: '/token' },
   { label: 'Membership', href: '/#membership' },
-  { label: 'Comic', href: '/#comic' },
-  { label: 'Calculator', href: '/#calculator' },
+  { label: 'Comic', href: '/comic' },
+  { label: 'Calculator', href: '/calculator' },
   { label: 'Evolution Lab', href: '/Evaluation' },
   { label: 'Whitelist', href: links.whitelist },
   { label: 'One Pager', href: links.docs },

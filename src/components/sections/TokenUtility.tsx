@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { assets, links } from '../../data/assets';
+import { assets } from '../../data/assets';
 import { tokenFeatures } from '../../data/content';
 import { AnimatedSection } from '../ui/AnimatedSection';
 import { Button } from '../ui/Button';
@@ -63,7 +63,7 @@ export function TokenUtility() {
                 </div>
 
                 <div className="mt-8">
-                  <Button href={links.docs}>Token Utility Overview</Button>
+                  <Button href="/token">Token Utility Overview</Button>
                 </div>
               </div>
             </GlassCard>

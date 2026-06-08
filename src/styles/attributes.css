@@ -1,0 +1,59 @@
+/* Attributes page */
+
+.attr-stage {
+  @apply cursor-pointer px-4 py-3 text-white transition-all duration-300;
+}
+
+.attr-stage--active .attr-stage-label {
+  @apply text-cyan-glow;
+}
+
+.attr-stage-heading {
+  @apply font-display text-xl font-semibold sm:text-2xl;
+}
+
+.attr-stage-name {
+  @apply font-body text-base text-white/70 sm:text-lg;
+}
+
+.attr-stage-divider {
+  @apply hidden h-12 w-1 bg-white/30 sm:block;
+}
+
+.attr-category-tab {
+  @apply cursor-pointer rounded-2xl border-2 border-[#6923ea] px-4 py-2.5 font-brand text-xs font-extrabold uppercase text-white shadow-[0_2px_80px_-16px_#631de7] transition-all duration-200 sm:text-sm;
+  width: 7.5rem;
+}
+
+.attr-category-tab:hover {
+  @apply border-cyan-glow/40 text-cyan-glow;
+}
+
+.attr-category-tab--active {
+  background-image: linear-gradient(90deg, #fa4cf0 4%, #5d15e3 53%, #00fff4 97%);
+  @apply border-transparent;
+}
+
+.attr-trait-card {
+  @apply overflow-hidden rounded-[1.75rem] bg-[#6923ea];
+  box-shadow: -2px -2px 10px 6px rgba(105, 35, 234, 0.35);
+}
+
+.attr-trait-img {
+  @apply rounded-[1.75rem] border-2 border-[#6923ea] p-0.5;
+  box-shadow: -2px -2px 10px 6px rgba(105, 35, 234, 0.75);
+}
+
+.attr-hero-btn {
+  animation: attr-btn-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes attr-btn-pulse {
+  0%,
+  100% {
+    box-shadow: 1px 2px 80px 11px rgba(99, 29, 231, 0.35);
+  }
+  50% {
+    box-shadow: 1px 2px 100px 16px rgba(248, 50, 236, 0.4);
+  }
+}

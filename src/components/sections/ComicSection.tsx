@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
 import { useRef } from 'react';
-import { assets, links } from '../../data/assets';
+import { assets } from '../../data/assets';
 import { AnimatedSection } from '../ui/AnimatedSection';
 import { LazyImage } from '../ui/LazyImage';
 import { Button } from '../ui/Button';
@@ -65,7 +65,7 @@ export function ComicSection() {
               )}
             </ul>
             <div className="mt-8">
-              <Button href={links.docs} variant="secondary">
+              <Button href="/comic" variant="secondary">
                 Check Out Comic Page
               </Button>
             </div>

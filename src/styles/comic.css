@@ -1,0 +1,80 @@
+/* Comic page — cards, tabs, purchase panel */
+
+.comic-part-card {
+  box-shadow: 0 2px 80px -16px #631de7;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.comic-part-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 2px 80px -16px #631de7,
+    0 0 32px rgba(99, 29, 231, 0.25);
+}
+
+.comic-tab {
+  @apply cursor-pointer rounded-lg px-6 py-2 font-display text-lg font-medium text-[#f832ec] transition-all duration-200;
+}
+
+.comic-tab:hover {
+  @apply text-cyan-glow;
+}
+
+.comic-tab--active {
+  color: #5dc8f6;
+  background-color: rgba(121, 171, 251, 0.17);
+}
+
+.comic-glass-panel {
+  border-radius: 25px;
+  background-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 18px 0 #6923ea;
+}
+
+.comic-price-box {
+  border: 2px solid #6923ea;
+  border-radius: 15px;
+}
+
+.comic-countdown-cell {
+  @apply flex flex-col items-center;
+}
+
+.comic-story-modal {
+  border: 2px solid #6923ea;
+  box-shadow: 0 2px 18px 0 #6923ea;
+  background-color: #020119;
+}
+
+.comic-page-dropdown {
+  border: 2px solid #f832ec;
+  box-shadow: 0 0 5px 5px rgba(248, 50, 235, 0.32);
+}
+
+.comic-release-viewer {
+  min-height: 657px;
+  background: linear-gradient(180deg, rgba(99, 29, 231, 0.08) 0%, rgba(0, 0, 0, 0.2) 100%);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.comic-btn-glow {
+  animation: comic-btn-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes comic-btn-pulse {
+  0%,
+  100% {
+    box-shadow: 1px 2px 60px 8px rgba(105, 35, 234, 0.35);
+  }
+  50% {
+    box-shadow: 1px 2px 90px 16px rgba(248, 50, 236, 0.45);
+  }
+}
+
+.comic-countdown-digit {
+  display: inline-block;
+  min-width: 2ch;
+  text-align: center;
+}

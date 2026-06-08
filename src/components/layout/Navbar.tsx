@@ -36,6 +36,13 @@ function NavHref({
       </a>
     );
   }
+  if (href.startsWith('/') && !href.includes('#')) {
+    return (
+      <Link to={href} className={className} title={title} onClick={onClick}>
+        {children}
+      </Link>
+    );
+  }
   if (href.startsWith('/')) {
     return (
       <InternalLink href={href} className={className} title={title} onClick={onClick}>
@@ -263,7 +270,7 @@ export function Navbar() {
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
-            <NavHref href="/#calculator" className="hidden md:inline-block" title="Calculator">
+            <NavHref href="/calculator" className="hidden md:inline-block" title="Calculator">
               <NavLumiaSwap label="Calculator" icon={Calculator} className="min-w-[6.5rem]" />
             </NavHref>
             <NavHref href="/#buy" className="hidden md:inline-block" title="Buy Now">
@@ -310,7 +317,7 @@ export function Navbar() {
               />
               <div className="flex flex-col gap-1 border-t border-white/[0.08] py-2">
                 <NavHref
-                  href="/#calculator"
+                  href="/calculator"
                   onClick={closeMobile}
                   className="flex items-center gap-3 py-3 font-nav text-[12px] uppercase tracking-[2px] text-white/65"
                 >
