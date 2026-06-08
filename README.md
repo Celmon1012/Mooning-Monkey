@@ -1,3 +1,17 @@
+HI, Lali. I am Farhan from Upwork. 
+Your Upwork account suspended so we can't work on Upwrok anymore. 
+Here is my email. farhanyousaf9610@gmail.com 
+Could you plz invite me on your team or personal slack? 
+We can work on here. 
+Whatsapp: +1 (920) 376-6079, +1 (929) 231 8782 
+LinkedIn: https://www.linkedin.com/in/mfarhanyousaf/ 
+Plz contact me about future work. Also, I've update all design and pushed into your github. 
+And I have best plan about this design. 
+I will show you. 
+Thanks, 
+Farhan Yousaf.
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
